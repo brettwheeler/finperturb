@@ -6,10 +6,19 @@ arms cannot drift apart when there is nothing to drift between, and "both
 engines were scored under the same rules" is answered by the repo SHA each
 report prints in its *Scoring rules in force* table.
 
-(History note: this directory spent one day, 2026-08-09, as a separate
-`finperturb-core` repo vendored into arms by pinned submodule. The monorepo
-conversion the same day made the pin machinery redundant; the subtree merge
-preserved those commits, which carry the registration dates.)
+**When these rules were registered, and how you can check.** They were settled
+on 2026-08-09 and first committed here the same day, tagged
+`rules-registered-2026-08-09`. What makes that a pre-registration rather than a
+claim is the ORDER OF TWO DATES in this repo's own history: the tag above, and
+the later commit that freezes the fixture set. No number in this study was seen
+before the earlier of those.
+
+Do not look for authoring history behind this directory; there is none to find.
+The rules were written in an uncommitted working tree, spent one day (2026-08-09)
+as a short-lived `finperturb-core` repo vendored by submodule, and arrived here
+when the monorepo conversion made the pin machinery redundant. Those few commits
+were housekeeping — line endings, one bugfix — and are not in this history. The
+tag is the evidence; they never were.
 
 ```
 score_pilot.py           reads an append-only run log, writes one markdown report

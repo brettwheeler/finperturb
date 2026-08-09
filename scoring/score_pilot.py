@@ -41,12 +41,12 @@ are comparable:
      `permutation_null.py` with the procedure written down.
 
 THIS DIRECTORY IS THE ONE COPY OF THE RULES, shared by every arm of the
-monorepo (it was a separate repo vendored by submodule for one day, 2026-08-09;
-the monorepo made the pin machinery redundant because one tree cannot drift
-against itself). Every report prints the repo SHA it ran at, so "both engines
-were scored under the same rules" is a checkable fact rather than an
-assumption. Nothing in this directory may import from, or assume the layout of,
-any arm: the contract is the log row (item_id / klass / action / status /
+monorepo, because one tree cannot drift against itself. Every report prints the
+repo SHA it ran at, so "both engines were scored under the same rules" is a
+checkable fact rather than an assumption. Registered 2026-08-09 and tagged
+`rules-registered-2026-08-09`; see scoring/README.md for what that tag is
+evidence OF. Nothing in this directory may import from, or assume the layout
+of, any arm: the contract is the log row (item_id / klass / action / status /
 model_version / context) and nothing else.
 """
 
