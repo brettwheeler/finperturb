@@ -1,0 +1,104 @@
+{
+  "_comment": "Machine-readable output of the item-3 applicability audit. The reasoning lives in docs/applicability-audit.md; this file is what a harness or report reads so a drop is enforced mechanically rather than remembered. Enforcement for a given arm is its harness/corpus_config.json excluded_klasses; this is the study-level record those must agree with.",
+  "audit_version": "1",
+  "audited_utc": "2026-08-09",
+  "method": "source reading only; no engine was run",
+  "verdicts": {
+    "run": "reaches the decision prompt intact",
+    "run_attenuated": "reaches the decision through a lossy stage; valid, but effect size is not comparable across engines without saying so",
+    "dropped": "contradicted or erased downstream; measuring it would measure the contradiction"
+  },
+  "engines": {
+    "finmem": {
+      "pin": "be814aa",
+      "arm": "arms/finmem",
+      "interception_point": "memory rows (current harness)",
+      "lossy_stages_before_decision": 0,
+      "classes": {
+        "N1": {
+          "verdict": "run",
+          "reason": "News text is joined into investment_info verbatim, only .strip() applied. No summarization; no truncation (top_k bounds memory count, embedder chunks at 5000 tokens and averages).",
+          "citations": ["puppy/reflection.py:325", "puppy/memorydb.py:147-148", "puppy/embedding.py:10-11"]
+        },
+        "N2": {
+          "verdict": "dropped",
+          "reason": "The ticker is injected into the prompt from config, independently of the news, so an N2 variant yields a prompt naming the real ticker in its header and the pseudonym in its body. Self-contradictory rather than meaning-preserving, and invisible to the section 4.3 audit because it is introduced downstream of the fixture text.",
+          "citations": ["puppy/prompts.py:16", "puppy/reflection.py:319-321"],
+          "decided_by": "project lead, 2026-08-08"
+        },
+        "N3": {
+          "verdict": "run",
+          "reason": "Same verbatim path as N1.",
+          "citations": ["puppy/reflection.py:325"]
+        }
+      },
+      "notes": [
+        "Retrieval is embedding-based, so a paraphrase can change which memories are retrieved. That is the agent's own behaviour and part of what is under test, not a downstream contradiction.",
+        "_add_momentum_info injects price direction as independent English text; a future price-context class would fail here for N2's reason. puppy/reflection.py:227-243"
+      ]
+    },
+    "tradingagents": {
+      "pin": "a33fd4c",
+      "arm": "arms/tradingagents",
+      "interception_point": "register a fixture vendor in VENDOR_METHODS; the vendor chain is configuration, so the engine stays unmodified",
+      "lossy_stages_before_decision": 2,
+      "classes": {
+        "N1": {
+          "verdict": "run_attenuated",
+          "reason": "News is not a prompt input; it is fetched by tool call and routed through a vendor. Two dilution stages follow: the news analyst LLM writes a report rather than passing text through, and the decision is a debate over five analyst reports of which four are unperturbed.",
+          "citations": ["tradingagents/agents/analysts/news_analyst.py:20-28", "tradingagents/agents/analysts/news_analyst.py:59-67", "tradingagents/agents/utils/news_data_tools.py:24", "tradingagents/dataflows/interface.py:168-198"]
+        },
+        "N2": {
+          "verdict": "dropped",
+          "reason": "build_instrument_context injects ticker, company name, sector, industry and exchange from a live identity lookup, under an explicit instruction to use the exact ticker in every tool call, report and recommendation; it is re-injected between analysts. Upstream issue #814 shows the anchoring is a deliberate design goal.",
+          "citations": ["tradingagents/agents/utils/agent_utils.py:122-157", "tradingagents/agents/utils/agent_utils.py:172-187", "tradingagents/agents/utils/agent_utils.py:204-211"]
+        },
+        "N3": {
+          "verdict": "run_attenuated",
+          "reason": "Same path and same two dilution stages as N1.",
+          "citations": ["tradingagents/agents/analysts/news_analyst.py:59-67"]
+        }
+      },
+      "notes": [
+        "Feasibility depends on the fixture vendor: the harness must make the tool return frozen text deterministically, including for date ranges the agent chooses itself."
+      ]
+    },
+    "finagent": {
+      "pin": "17248a0",
+      "arm": "arms/finagent",
+      "interception_point": "substitute the processed data the download/process pipeline produces",
+      "lossy_stages_before_decision": 1,
+      "classes": {
+        "N1": {
+          "verdict": "run_attenuated",
+          "reason": "News passes through the market-intelligence module, where an LLM compresses it to at most 40 tokens per item and a 300-token summary before the decision sees anything. The decision never sees the fixture text.",
+          "citations": ["res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html"]
+        },
+        "N2": {
+          "verdict": "dropped",
+          "reason": "Two independent mechanisms. A full company profile (name, symbol, exchange, sector, industry, description) is injected into both the decision and market-intelligence task descriptions from a static asset file; and the model is explicitly instructed that its extracted insights must NOT contain the asset name or symbol, so a rename is stripped rather than merely contradicted.",
+          "citations": ["res/prompts/module/trading/decision_task_description_trading.html", "res/prompts/module/trading/market_intelligence_task_description_trading.html", "res/prompts/asset_infos/exp_stocks.json"]
+        },
+        "N3": {
+          "verdict": "run_attenuated",
+          "reason": "Valid, but explicitly defended against: the market-intelligence prompt's first rule instructs the model to disregard unrelated market intelligence, which is exactly what an appended irrelevant sentence is. A null result here means the filter worked, not that the agent is robust in general.",
+          "citations": ["res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html"]
+        }
+      },
+      "notes": [
+        "SCOPE: the engine is multimodal. Base64 JPEG payloads carrying K-line charts with MA and Bollinger overlays are sent as image_url content, so a text-only perturbation measures one channel of a two-channel agent. Holding the visual channel constant across all cells must be registered as a design condition, and the limit stated when reporting phi or JSD for this engine. finagent/provider/provider.py:270-284, 411-444",
+        "Identification of this repository as the arXiv 2402.18485 implementation rests on source inspection; the upstream README carries no citation. Lead to confirm."
+      ]
+    }
+  },
+  "cross_cutting": {
+    "n2_universally_dropped": {
+      "finding": "All three engines inject instrument identity independently of the news, each deliberately, because an agent that calls tools by ticker and retrieves memory by symbol must anchor identity outside the text. The rename perturbation is therefore not testable on this class of system without modifying the agent, which the study forbids.",
+      "consequence": "Report as a general finding rather than a per-engine caveat: a whole category of surface-form robustness test is unavailable against deployed LLM trading agents."
+    },
+    "attenuation_confound": {
+      "finding": "Architecture alone predicts the effect-size ordering before any data: FinMem 0 lossy stages, FinAgent 1 severe, TradingAgents 2 plus a 1-of-5 channel share.",
+      "consequence": "Register the ordering as a prediction. Report effects primarily WITHIN engine; treat cross-engine magnitude comparison as secondary and explicitly confounded, because phi normalizes decoding noise and not channel weight."
+    }
+  }
+}
