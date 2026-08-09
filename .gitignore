@@ -1,0 +1,9 @@
+# Universal noise; each arm's own .gitignore carries the arm-specific rules
+# (agent clones, run logs, .env) so an arm stays self-describing.
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Defense in depth: keys never, at any level, whatever an arm forgets.
+.env*
+!.env.example

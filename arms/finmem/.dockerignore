@@ -1,0 +1,16 @@
+# Keep the build context small and free of anything secret. Everything excluded
+# here is bind-mounted at run time instead, so nothing is actually lost.
+.git
+.gitignore
+.env
+.env.*
+data/runs/
+logs/
+agents/
+scoring/
+__pycache__/
+**/__pycache__/
+*.pyc
+**/.venv/
+.pytest_cache/
+README.md

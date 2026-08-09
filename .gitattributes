@@ -1,0 +1,6 @@
+# One total rule. This tree is read by git on Windows hosts AND inside Linux
+# containers; any text file a per-extension list missed checks out CRLF on
+# Windows and then reads as eternally modified from the container side. LF also
+# keeps shebangs intact -- a CRLF entrypoint.sh fails as "no such file or
+# directory" against a file that is plainly there. `auto` spares binaries.
+* text=auto eol=lf

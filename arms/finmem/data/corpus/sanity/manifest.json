@@ -1,0 +1,38 @@
+{
+  "builder_version": "1",
+  "cells": [
+    {
+      "cell_id": "SANITY-NEG__BASE",
+      "item_id": "SANITY-NEG",
+      "klass": "BASE",
+      "path": "cells/SANITY-NEG__BASE.pkl",
+      "text_sha256_16": "a7167082e3f666a1",
+      "variant_id": null
+    },
+    {
+      "cell_id": "SANITY-POS__BASE",
+      "item_id": "SANITY-POS",
+      "klass": "BASE",
+      "path": "cells/SANITY-POS__BASE.pkl",
+      "text_sha256_16": "5c7b8746a0d472d6",
+      "variant_id": null
+    }
+  ],
+  "decision_date": "2026-06-05",
+  "excluded_klasses": {
+    "N2": {
+      "cells_dropped": 0,
+      "reason": "Dropped for FinMem by the project lead, 2026-08-08. FinMem states the ticker in the prompt independently of the news (puppy/prompts.py:16), so a renamed variant yields a prompt naming TSLA in its header and 'Company A' in its body - a self-contradiction rather than a meaning-preserving rewrite, and one the \u00a74.3 audit cannot see because it is introduced downstream of the fixture text. Revisit per-engine: the sibling repos must establish whether TradingAgents and the third engine state the ticker independently of the news."
+    }
+  },
+  "next_date": "2026-06-08",
+  "price_source": "SYNTHETIC (rehearsal only - not real market data)",
+  "symbol": "TSLA",
+  "train_days": [
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04"
+  ],
+  "train_pickle": "train.pkl"
+}

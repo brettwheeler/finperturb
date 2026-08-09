@@ -1,0 +1,11 @@
+# Harness dependencies only. Deliberately small: each agent repo brings its own
+# stack into its own venv under /opt/venvs (§3.2), so nothing here can collide
+# with whatever FinMem pins.
+#
+# No provider SDK yet -- which provider fills each of the two roles in §2.4 is
+# not decided, and httpx covers both until it is.
+
+httpx>=0.27,<0.29      # HTTP client, provider-neutral
+tenacity>=8.2,<10      # retry x3 with backoff, then log status:"error" (§6.1)
+numpy>=1.26,<3         # bootstrap over items, JSD (§7.4, §7.5)
+pytest>=8.0,<9         # wrapper verification (§5.3)

@@ -1,0 +1,118 @@
+{
+  "builder_version": "1",
+  "cells": [
+    {
+      "cell_id": "S04__BASE",
+      "item_id": "S04",
+      "klass": "BASE",
+      "path": "cells/S04__BASE.pkl",
+      "text_sha256_16": "6d16bfee328edda5",
+      "variant_id": null
+    },
+    {
+      "cell_id": "S04__N1__S04-N1-1",
+      "item_id": "S04",
+      "klass": "N1",
+      "path": "cells/S04__N1__S04-N1-1.pkl",
+      "text_sha256_16": "2718c60d1f789b14",
+      "variant_id": "S04-N1-1"
+    },
+    {
+      "cell_id": "S04__N3__S04-N3-1",
+      "item_id": "S04",
+      "klass": "N3",
+      "path": "cells/S04__N3__S04-N3-1.pkl",
+      "text_sha256_16": "89b8e68895df3cd6",
+      "variant_id": "S04-N3-1"
+    },
+    {
+      "cell_id": "S05__BASE",
+      "item_id": "S05",
+      "klass": "BASE",
+      "path": "cells/S05__BASE.pkl",
+      "text_sha256_16": "555f14733c5ddbaa",
+      "variant_id": null
+    },
+    {
+      "cell_id": "S05__N1__S05-N1-1",
+      "item_id": "S05",
+      "klass": "N1",
+      "path": "cells/S05__N1__S05-N1-1.pkl",
+      "text_sha256_16": "bdae2abadec040d6",
+      "variant_id": "S05-N1-1"
+    },
+    {
+      "cell_id": "S05__N3__S05-N3-1",
+      "item_id": "S05",
+      "klass": "N3",
+      "path": "cells/S05__N3__S05-N3-1.pkl",
+      "text_sha256_16": "7a4fb5f472dfb75e",
+      "variant_id": "S05-N3-1"
+    },
+    {
+      "cell_id": "S06__BASE",
+      "item_id": "S06",
+      "klass": "BASE",
+      "path": "cells/S06__BASE.pkl",
+      "text_sha256_16": "2db3464d3b5b17f0",
+      "variant_id": null
+    },
+    {
+      "cell_id": "S06__N1__S06-N1-1",
+      "item_id": "S06",
+      "klass": "N1",
+      "path": "cells/S06__N1__S06-N1-1.pkl",
+      "text_sha256_16": "20801d6a0e8eef64",
+      "variant_id": "S06-N1-1"
+    },
+    {
+      "cell_id": "S06__N3__S06-N3-1",
+      "item_id": "S06",
+      "klass": "N3",
+      "path": "cells/S06__N3__S06-N3-1.pkl",
+      "text_sha256_16": "42acfa7e0e49f550",
+      "variant_id": "S06-N3-1"
+    },
+    {
+      "cell_id": "S07__BASE",
+      "item_id": "S07",
+      "klass": "BASE",
+      "path": "cells/S07__BASE.pkl",
+      "text_sha256_16": "b21c3edd2cda6ef5",
+      "variant_id": null
+    },
+    {
+      "cell_id": "S07__N1__S07-N1-1",
+      "item_id": "S07",
+      "klass": "N1",
+      "path": "cells/S07__N1__S07-N1-1.pkl",
+      "text_sha256_16": "f634c47bf20a1c9f",
+      "variant_id": "S07-N1-1"
+    },
+    {
+      "cell_id": "S07__N3__S07-N3-1",
+      "item_id": "S07",
+      "klass": "N3",
+      "path": "cells/S07__N3__S07-N3-1.pkl",
+      "text_sha256_16": "6a940fb5b98f0789",
+      "variant_id": "S07-N3-1"
+    }
+  ],
+  "decision_date": "2026-06-05",
+  "excluded_klasses": {
+    "N2": {
+      "cells_dropped": 0,
+      "reason": "Dropped for FinMem by the project lead, 2026-08-08. FinMem states the ticker in the prompt independently of the news (puppy/prompts.py:16), so a renamed variant yields a prompt naming TSLA in its header and 'Company A' in its body - a self-contradiction rather than a meaning-preserving rewrite, and one the \u00a74.3 audit cannot see because it is introduced downstream of the fixture text. Revisit per-engine: the sibling repos must establish whether TradingAgents and the third engine state the ticker independently of the news."
+    }
+  },
+  "next_date": "2026-06-08",
+  "price_source": "SYNTHETIC (rehearsal only - not real market data)",
+  "symbol": "TSLA",
+  "train_days": [
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04"
+  ],
+  "train_pickle": "train.pkl"
+}

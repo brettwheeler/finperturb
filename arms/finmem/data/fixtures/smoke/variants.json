@@ -1,0 +1,23 @@
+[
+  {
+    "id": "S01-N1-1",
+    "base_id": "S01",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written stand-in for a paraphrase-provider output, not audited (§4.3).",
+    "text": "Quarterly deliveries at Tesla came in at 466,000 vehicles, above the 452,000 figure analysts had projected. Gross margin in the automotive segment rose to 18.2%, up from 17.1% the previous quarter. The company restated its production guidance for the full year."
+  },
+  {
+    "id": "S01-N2-1",
+    "base_id": "S01",
+    "klass": "N2",
+    "note": "REHEARSAL - placeholder rename. Deliberately included so the ticker-contradiction problem shows up in the rehearsal: the prompt will still say the ticker is TSLA.",
+    "text": "Company A reported quarterly deliveries of 466,000 vehicles, ahead of the 452,000 analysts had modelled. Automotive gross margin improved to 18.2% from 17.1% in the prior quarter. Management reaffirmed its full-year production guidance."
+  },
+  {
+    "id": "S01-N3-1",
+    "base_id": "S01",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append placeholder.",
+    "text": "Tesla reported quarterly deliveries of 466,000 vehicles, ahead of the 452,000 analysts had modelled. Automotive gross margin improved to 18.2% from 17.1% in the prior quarter. Management reaffirmed its full-year production guidance. The company's visitor centre completed a lobby refurbishment earlier this spring."
+  }
+]

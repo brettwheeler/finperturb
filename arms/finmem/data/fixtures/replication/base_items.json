@@ -1,0 +1,30 @@
+[
+  {
+    "id": "S04",
+    "item_type": "segment_mixed",
+    "expected_baseline": "hold",
+    "note": "REHEARSAL FIXTURE - fabricated, not part of the frozen set (§4.1). Aimed at the mid phi band: one segment strong, one flat, no guidance update.",
+    "text": "Tesla said third-quarter energy storage deployments reached 14.7 GWh, up 31% year over year and a quarterly record. The automotive segment was broadly flat, with deliveries within 1% of the prior quarter. The company did not update its full-year outlook."
+  },
+  {
+    "id": "S05",
+    "item_type": "operational_negative",
+    "expected_baseline": "hold",
+    "note": "REHEARSAL FIXTURE - fabricated. A negative event the text explicitly frames as timing-only; aimed at mid phi.",
+    "text": "Tesla disclosed that a supplier quality issue will delay roughly 9,000 vehicle deliveries into the following quarter. The company said the affected units are complete and awaiting a replacement component, and that it does not expect a financial impact beyond timing. No change was made to full-year guidance."
+  },
+  {
+    "id": "S06",
+    "item_type": "regulatory",
+    "expected_baseline": "hold",
+    "note": "REHEARSAL FIXTURE - fabricated. Regulatory attention with an explicit no-defect-finding caveat; aimed at mid phi.",
+    "text": "A regulator opened a preliminary review of Tesla's driver-assistance software following 14 reported incidents. The agency said the review is an early-stage fact-finding step and does not imply a defect finding. Tesla said it is cooperating and that the feature meets all applicable standards."
+  },
+  {
+    "id": "S07",
+    "item_type": "earnings_negative",
+    "expected_baseline": "sell",
+    "note": "REHEARSAL FIXTURE - fabricated. Deliberately decisive in the NEGATIVE direction, to sit at the low-phi end as S01 does at the positive end. Without it the set has no low-phi anchor on this side.",
+    "text": "Tesla reported quarterly deliveries of 389,000 vehicles, below the 431,000 analysts expected, and said automotive gross margin fell to 13.1% from 17.9% a year earlier. The company withdrew its full-year delivery guidance, citing uncertain demand. It also announced a hiring freeze across most functions."
+  }
+]

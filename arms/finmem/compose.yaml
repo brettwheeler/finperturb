@@ -1,0 +1,48 @@
+# One compose project per ARM, and the project name says which. Sibling arms
+# (arms/tradingagents, arms/finagent) get their own compose project, so their
+# agent venvs land in their own named volume rather than colliding in a shared
+# one -- the dependency sets are the whole reason the arms have separate images.
+# The name predates the monorepo (this arm was the finperturb-finmem repo) and
+# KEEPS the old value deliberately: the named volume is keyed by project name,
+# and renaming would orphan the venv that §3 budgets days of dependency work for.
+name: finperturb-finmem
+
+services:
+  fp:
+    build:
+      context: .
+      args:
+        # Windows hosts leave these unset and the default is correct. On a Linux
+        # host, `UID=$(id -u) GID=$(id -g) docker compose build` keeps the run
+        # logs owned by you rather than by root.
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    image: finperturb-finmem:dev
+    # Keys come from .env at RUN time. They are not build args and never enter
+    # an image layer -- see the Dockerfile header.
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ:-UTC}
+      FP_REQUIRE_KEYS: ${FP_REQUIRE_KEYS:-1}
+    volumes:
+      # The WHOLE MONOREPO, not just this arm: scoring/ lives at the root and
+      # the provenance row needs the root .git to answer the repo SHA. Fixtures
+      # and the append-only run log stay on the host and survive
+      # `docker compose down`.
+      - ../..:/work
+      # Agent venvs only. A named volume rather than a bind mount for two
+      # reasons: they hold Linux binaries that have no business on the host
+      # filesystem, and §3's dependency work must survive an image rebuild.
+      - agent-venvs:/opt/venvs
+    # The arm, not the root: interactive work is agent and harness work, and
+    # every harness path is arm-relative. Scoring runs from /work.
+    working_dir: /work/arms/finmem
+    init: true
+    stdin_open: true
+    tty: true
+    # Idle by default; the container is a place to exec into, not a job.
+    command: ["sleep", "infinity"]
+
+volumes:
+  agent-venvs:

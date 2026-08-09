@@ -1,0 +1,16 @@
+[
+  {
+    "id": "SANITY-NEG",
+    "item_type": "sanity_probe",
+    "expected_baseline": "sell",
+    "note": "§5.3 SANITY-REACTION PROBE - not a fixture item, never scored, never part of the run matrix. Deliberately extreme: if the agent returns the same action for this and SANITY-POS, either the injection point is dead or the agent ignores its input, and §5.3 says escalate rather than diagnose alone.",
+    "text": "Tesla filed for Chapter 11 bankruptcy protection this morning after failing to refinance $4.2 billion of debt maturing this quarter. The company said it will seek to continue operating while it restructures, and trading in its shares was halted pending the announcement. Its auditor had issued a going-concern warning three weeks earlier."
+  },
+  {
+    "id": "SANITY-POS",
+    "item_type": "sanity_probe",
+    "expected_baseline": "buy",
+    "note": "§5.3 SANITY-REACTION PROBE - the positive pole. See SANITY-NEG.",
+    "text": "Tesla announced a binding agreement to supply battery systems to the three largest European automakers, in a contract the company valued at $58 billion over eight years. Management said the deal is expected to roughly double automotive revenue from 2027 and raised full-year guidance accordingly. The company also reported that its new cell plant reached full production ahead of schedule."
+  }
+]

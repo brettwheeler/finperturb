@@ -1,0 +1,30 @@
+[
+  {
+    "id": "S03-N1-1",
+    "base_id": "S03",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written stand-in for a paraphrase-provider output. §4.2 requires these come from a DIFFERENT provider than the backbone, and PARAPHRASE_API_KEY is not yet set; these are not audited (§4.3). All five numeric tokens from the original are preserved: 27.4, 26.1, 15.8, 18.4, 4.",
+    "text": "Revenue for the quarter came in at $27.4 billion at Tesla, above the $26.1 billion analysts had expected, though automotive gross margin declined to 15.8% from 18.4% in the same period a year ago. Citing weaker demand in Europe, the company reduced its full-year delivery guidance by about 4%. Management stated that it would speed up a cost-reduction programme which it anticipates will offset some of the margin pressure."
+  },
+  {
+    "id": "S03-N1-2",
+    "base_id": "S03",
+    "klass": "N1",
+    "note": "REHEARSAL - second hand-written paraphrase, same caveats. Two N1 variants rather than §4.2's five, to keep the rehearsal at 110 calls.",
+    "text": "Tesla posted $27.4 billion in quarterly revenue, exceeding the consensus figure of $26.1 billion, while automotive gross margin slipped to 15.8% against 18.4% a year earlier. The firm lowered full-year delivery guidance by approximately 4%, attributing the change to weaker European demand. It added that an accelerated cost-reduction effort should offset a portion of the margin decline."
+  },
+  {
+    "id": "S03-N1-3",
+    "base_id": "S03",
+    "klass": "N1",
+    "note": "REHEARSAL - third hand-written paraphrase, same caveats. Three N1 variants give the per-item JSD something to vary across, which is what §7.5 calls the statistic.",
+    "text": "Quarterly revenue at Tesla reached $27.4 billion against a consensus of $26.1 billion, but the automotive gross margin contracted to 15.8% from 18.4% one year previously. Softer European demand led the company to trim full-year delivery guidance by around 4%. According to management, an accelerated programme of cost reductions is expected to absorb part of the pressure on margins."
+  },
+  {
+    "id": "S03-N3-1",
+    "base_id": "S03",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append. The added sentence is fluent and decision-irrelevant; the preceding text is byte-identical to the base item.",
+    "text": "Tesla reported quarterly revenue of $27.4 billion, ahead of the $26.1 billion consensus, but automotive gross margin fell to 15.8% from 18.4% a year earlier. The company cut its full-year delivery guidance by roughly 4%, citing softer demand in Europe. Management said it will accelerate a cost-reduction programme it expects to offset part of the margin pressure. The company's visitor centre will extend its weekend opening hours from next month."
+  }
+]

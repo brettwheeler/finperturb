@@ -1,0 +1,19 @@
+# Keys, never. The example file is the only .env* that is committed.
+.env*
+!.env.example
+
+# Run logs are the raw experimental data: append-only, backed up by hand, and
+# far too large and too churny for git (§2.5). Losing them is not a git problem.
+data/runs/
+
+# Operational noise.
+logs/
+envs/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Cloned agent repos are upstream code, not ours -- and a nested .git inside the
+# tree confuses everything. Their lockfiles ARE ours (§3.2), so those stay.
+agents/*/
+!agents/*.txt

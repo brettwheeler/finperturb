@@ -1,0 +1,6 @@
+# One total rule, not per-extension patterns: this checkout is read by git on
+# Windows hosts AND inside Linux containers, and any text file the patterns
+# missed (this one, the first time) checks out CRLF on Windows and then reads
+# as eternally modified from the container side -- which poisons the report's
+# dirty-tree check. Everything here is text; auto spares any future binary.
+* text=auto eol=lf

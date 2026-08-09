@@ -1,0 +1,58 @@
+[
+  {
+    "id": "S04-N1-1",
+    "base_id": "S04",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written paraphrase stand-in, unaudited (§4.2/§4.3 both unmet). Numbers preserved: 14.7, 31, 1.",
+    "text": "Energy storage deployments at Tesla hit a quarterly record of 14.7 GWh in the third quarter, a rise of 31% from a year earlier. Automotive was largely unchanged, with deliveries within 1% of the previous quarter's level. No update to the full-year outlook was provided."
+  },
+  {
+    "id": "S04-N3-1",
+    "base_id": "S04",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append. Preceding text byte-identical to base. A DIFFERENT sentence per item on purpose: reusing one sentence everywhere would confound the N3 class with that particular sentence.",
+    "text": "Tesla said third-quarter energy storage deployments reached 14.7 GWh, up 31% year over year and a quarterly record. The automotive segment was broadly flat, with deliveries within 1% of the prior quarter. The company did not update its full-year outlook. The company will publish its annual sustainability report on its investor relations website later this month."
+  },
+  {
+    "id": "S05-N1-1",
+    "base_id": "S05",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written paraphrase stand-in, unaudited. Numbers preserved: 9,000.",
+    "text": "A supplier quality problem will push about 9,000 vehicle deliveries into the next quarter, Tesla disclosed. According to the company, the affected vehicles are finished and waiting on a replacement part, with no financial impact expected other than timing. Full-year guidance was left unchanged."
+  },
+  {
+    "id": "S05-N3-1",
+    "base_id": "S05",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append. Preceding text byte-identical to base.",
+    "text": "Tesla disclosed that a supplier quality issue will delay roughly 9,000 vehicle deliveries into the following quarter. The company said the affected units are complete and awaiting a replacement component, and that it does not expect a financial impact beyond timing. No change was made to full-year guidance. The company's Fremont site completed a scheduled repaving of its staff car park over the summer."
+  },
+  {
+    "id": "S06-N1-1",
+    "base_id": "S06",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written paraphrase stand-in, unaudited. Numbers preserved: 14.",
+    "text": "Following 14 reported incidents, a regulator has begun a preliminary review of Tesla's driver-assistance software. The agency described the review as early-stage fact-finding that does not imply any defect finding. Tesla stated that it is cooperating and that the feature complies with all applicable standards."
+  },
+  {
+    "id": "S06-N3-1",
+    "base_id": "S06",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append. Preceding text byte-identical to base.",
+    "text": "A regulator opened a preliminary review of Tesla's driver-assistance software following 14 reported incidents. The agency said the review is an early-stage fact-finding step and does not imply a defect finding. Tesla said it is cooperating and that the feature meets all applicable standards. The company added two new languages to its owner's manual portal earlier this year."
+  },
+  {
+    "id": "S07-N1-1",
+    "base_id": "S07",
+    "klass": "N1",
+    "note": "REHEARSAL - hand-written paraphrase stand-in, unaudited. Numbers preserved: 389,000, 431,000, 13.1, 17.9.",
+    "text": "Quarterly deliveries at Tesla came to 389,000 vehicles, short of the 431,000 analysts had forecast, while automotive gross margin dropped to 13.1% from 17.9% a year earlier. Citing uncertain demand, the company withdrew its full-year delivery guidance. A hiring freeze across most functions was also announced."
+  },
+  {
+    "id": "S07-N3-1",
+    "base_id": "S07",
+    "klass": "N3",
+    "note": "REHEARSAL - no-op append. Preceding text byte-identical to base.",
+    "text": "Tesla reported quarterly deliveries of 389,000 vehicles, below the 431,000 analysts expected, and said automotive gross margin fell to 13.1% from 17.9% a year earlier. The company withdrew its full-year delivery guidance, citing uncertain demand. It also announced a hiring freeze across most functions. The company refreshed the design of its careers website in the spring."
+  }
+]

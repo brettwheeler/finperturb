@@ -1,0 +1,28 @@
+{
+  "_comment": "Rehearsal config. Prices are INVENTED - see price_source. Replace wholesale when the fixture spec supplies real closes and a chosen date.",
+  "symbol": "TSLA",
+  "price_source": "SYNTHETIC (rehearsal only - not real market data)",
+  "excluded_klasses": ["N2"],
+  "exclusion_reasons": {
+    "N2": "Dropped for FinMem by the project lead, 2026-08-08. FinMem states the ticker in the prompt independently of the news (puppy/prompts.py:16), so a renamed variant yields a prompt naming TSLA in its header and 'Company A' in its body - a self-contradiction rather than a meaning-preserving rewrite, and one the §4.3 audit cannot see because it is introduced downstream of the fixture text. Revisit per-engine: the sibling repos must establish whether TradingAgents and the third engine state the ticker independently of the news."
+  },
+  "train_days": 4,
+  "_training_news": "One neutral line per training date. Required: FinMem crashes on empty news (faiss.normalize_L2 on a zero-length array). Keep these decision-irrelevant - they land in short memory and are retrievable at decision time, identical for every cell.",
+  "training_news": [
+    "The company published its regular schedule of investor relations events for the coming quarter.",
+    "A routine filing listed no changes to the company's registered office address.",
+    "The company's careers page was updated with several openings in facilities administration.",
+    "An industry directory refreshed its standard entry for the company with no substantive changes."
+  ],
+  "decision_date": "2026-06-05",
+  "next_date": "2026-06-08",
+  "_prices": "FLAT-MOMENTUM rehearsal. get_moment(3) telescopes to (decision_close - first_training_close), so moment == 0 requires those two to be EXACTLY equal: 220.0 - 220.0. Integer-valued closes, because the comparison is `temp > 0 ... elif temp < 0 ... else 0` on a float sum, and a cent of rounding would silently make it +1 or -1. At exactly 0, reflection.py:347's `if momentum:` is falsy and the momentum block is omitted from the prompt altogether - the most neutral price context available, rather than a stated-neutral one.",
+  "prices": [
+    { "date": "2026-06-01", "close": 220.0 },
+    { "date": "2026-06-02", "close": 224.0 },
+    { "date": "2026-06-03", "close": 218.0 },
+    { "date": "2026-06-04", "close": 221.0 },
+    { "date": "2026-06-05", "close": 220.0 },
+    { "date": "2026-06-08", "close": 219.0 }
+  ]
+}

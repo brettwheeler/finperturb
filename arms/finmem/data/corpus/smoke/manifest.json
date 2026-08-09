@@ -1,0 +1,54 @@
+{
+  "builder_version": "1",
+  "cells": [
+    {
+      "cell_id": "S01__BASE",
+      "item_id": "S01",
+      "klass": "BASE",
+      "path": "cells/S01__BASE.pkl",
+      "text_sha256_16": "44e4df417e5276b5",
+      "variant_id": null
+    },
+    {
+      "cell_id": "S01__N1__S01-N1-1",
+      "item_id": "S01",
+      "klass": "N1",
+      "path": "cells/S01__N1__S01-N1-1.pkl",
+      "text_sha256_16": "18a77dd95d8f5937",
+      "variant_id": "S01-N1-1"
+    },
+    {
+      "cell_id": "S01__N3__S01-N3-1",
+      "item_id": "S01",
+      "klass": "N3",
+      "path": "cells/S01__N3__S01-N3-1.pkl",
+      "text_sha256_16": "96d84e2b35855f84",
+      "variant_id": "S01-N3-1"
+    },
+    {
+      "cell_id": "S02__BASE",
+      "item_id": "S02",
+      "klass": "BASE",
+      "path": "cells/S02__BASE.pkl",
+      "text_sha256_16": "3f9aab3795193508",
+      "variant_id": null
+    }
+  ],
+  "decision_date": "2026-06-05",
+  "excluded_klasses": {
+    "N2": {
+      "cells_dropped": 1,
+      "reason": "Dropped for FinMem by the project lead, 2026-08-08. FinMem states the ticker in the prompt independently of the news (puppy/prompts.py:16), so a renamed variant yields a prompt naming TSLA in its header and 'Company A' in its body - a self-contradiction rather than a meaning-preserving rewrite, and one the \u00a74.3 audit cannot see because it is introduced downstream of the fixture text. Revisit per-engine: the sibling repos must establish whether TradingAgents and the third engine state the ticker independently of the news."
+    }
+  },
+  "next_date": "2026-06-08",
+  "price_source": "SYNTHETIC (rehearsal only - not real market data)",
+  "symbol": "TSLA",
+  "train_days": [
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04"
+  ],
+  "train_pickle": "train.pkl"
+}

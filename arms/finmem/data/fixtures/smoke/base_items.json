@@ -1,0 +1,16 @@
+[
+  {
+    "id": "S01",
+    "item_type": "earnings",
+    "expected_baseline": "buy",
+    "note": "REHEARSAL FIXTURE - fabricated placeholder, NOT part of the frozen fixture set (§4.1). Exists only to exercise the pipeline end to end.",
+    "text": "Tesla reported quarterly deliveries of 466,000 vehicles, ahead of the 452,000 analysts had modelled. Automotive gross margin improved to 18.2% from 17.1% in the prior quarter. Management reaffirmed its full-year production guidance."
+  },
+  {
+    "id": "S02",
+    "item_type": "operational",
+    "expected_baseline": "hold",
+    "note": "REHEARSAL FIXTURE - fabricated placeholder, NOT part of the frozen fixture set (§4.1).",
+    "text": "Tesla said its Berlin plant will pause output for four days in July for scheduled equipment maintenance. The company described the shutdown as routine and said it does not expect an effect on quarterly volumes. No changes to the delivery calendar were announced."
+  }
+]
