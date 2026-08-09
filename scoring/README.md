@@ -6,19 +6,28 @@ arms cannot drift apart when there is nothing to drift between, and "both
 engines were scored under the same rules" is answered by the repo SHA each
 report prints in its *Scoring rules in force* table.
 
-**When these rules were registered, and how you can check.** They were settled
-on 2026-08-09 and first committed here the same day, tagged
-`rules-registered-2026-08-09`. What makes that a pre-registration rather than a
-claim is the ORDER OF TWO DATES in this repo's own history: the tag above, and
-the later commit that freezes the fixture set. No number in this study was seen
-before the earlier of those.
+**When these rules were registered.** Settled 2026-08-09 and first committed the
+same day in the private working repo, tagged `rules-registered-2026-08-09`, ahead
+of the commit that freezes the fixture set. No number this study reports was seen
+before the earlier of those two dates.
 
-Do not look for authoring history behind this directory; there is none to find.
-The rules were written in an uncommitted working tree, spent one day (2026-08-09)
-as a short-lived `finperturb-core` repo vendored by submodule, and arrived here
-when the monorepo conversion made the pin machinery redundant. Those few commits
-were housekeeping — line endings, one bugfix — and are not in this history. The
-tag is the evidence; they never were.
+**That ordering is a record, NOT proof, and the difference matters here of all
+places.** Commit dates in a repo the author controls are settable from an
+environment variable, so they persuade nobody who is not already inclined to
+believe. Worse, the ordering does not survive publication by itself: this study
+is developed in a private working repo and released as a separate public one, and
+a repo created by copying final state carries a single creation date and no
+ordering at all. **If pre-registration is claimed in writing, it needs a
+third-party timestamp** — an OSF or AsPredicted registration, or a hash of this
+directory posted somewhere dated and outside the author's control. That is cheap
+before the fixture freeze and impossible afterwards.
+
+Do not look for authoring history behind this directory; there is none. The rules
+were written in a working tree that was never committed, spent one day
+(2026-08-09) as a short-lived `finperturb-core` repo vendored by submodule, and
+arrived here when the monorepo conversion made the pin machinery redundant. Those
+few commits were housekeeping — line endings, one bugfix — and are not in any
+history. Nothing was lost that ever existed.
 
 ```
 score_pilot.py           reads an append-only run log, writes one markdown report
