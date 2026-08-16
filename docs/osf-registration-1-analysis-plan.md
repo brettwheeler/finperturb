@@ -4,9 +4,12 @@
 template. Registration 2 (confirmatory design: frozen fixtures, run matrix) is a
 separate registration made at fixture freeze, before any confirmatory run.
 
-**Attach to the registration:** a snapshot of `scoring/` at the registered SHA,
-`docs/readout-rule.md`, `docs/applicability-audit.md`,
-`docs/applicability-matrix.json`. Embargo until publication.
+**Attach to the registration:** a snapshot of `scoring/` at tag
+`reg1-snapshot-2026-08-16`, `docs/readout-rule.md`, `docs/applicability-audit.md`,
+`docs/applicability-matrix.json`, `docs/candidate-scan.md` (cited by the
+read-out rule §6.6; scouting-grade and labelled as such in its own header),
+`docs/worklog.md` (the provenance reconstruction, evidence grades included),
+`docs/ai-disclosure.md`. Embargo until publication, ended early at acceptance.
 
 ---
 
@@ -17,7 +20,7 @@ meaning-preserving perturbation of news input
 
 ## Authors
 
-*(lead to complete)*
+Brett E Wheeler
 
 ## Description
 
@@ -215,10 +218,14 @@ backbone model version; frozen-context stamp.
 
 ## Analysis plan
 
-The rules below are **already implemented and pinned** in `scoring/`, tagged
-`rules-registered-2026-08-09`, with a test suite that fails if any constant or
-procedure changes. The attached snapshot is authoritative; this section describes
-it.
+The rules below are **already implemented and pinned** in `scoring/`, with a
+test suite that fails if any constant or procedure changes. The rules froze at
+tag `rules-registered-2026-08-09`; one **addition** landed after it — TVD, the
+materiality scale §2 of the read-out rule required, pinned by its own tests and
+changing no frozen rule — so the snapshot attached here is tag
+`reg1-snapshot-2026-08-16`, which contains both. Both tags predate any
+confirmatory run. The attached snapshot is authoritative; this section
+describes it.
 
 ### Statistical model
 
@@ -321,7 +328,10 @@ figure regenerates from the raw logs by one command.
 1. **N2 is untestable** against all three engines (see Design plan).
 2. **Attenuation confounds cross-engine magnitude** (H3).
 3. **FinAgent is multimodal** and this study perturbs text only; its figures
-   describe one channel of a two-channel agent.
+   describe one channel of a two-channel agent — and the unperturbed image
+   channel reaches the backbone *less* attenuated than the perturbed news,
+   which crosses a ≤300-token summary. Any FinAgent stability claim is scoped
+   accordingly (read-out rule §4, §6.7), registered here in advance.
 4. **Fabricated-fixture pilot** informed the analysis rules (see Existing data).
 5. **Single backbone model version** per run matrix; results do not generalize
    across backbones.
