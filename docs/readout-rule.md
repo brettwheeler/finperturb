@@ -73,10 +73,13 @@ TVD is baseline-independent and directly interpretable: **the share of runs that
 would have to land on a different action to explain the shift.** TVD ≥ 0.10 means
 at least a tenth of runs decided differently.
 
-> **Required code change before registration.** The scorer does not currently
-> compute per-cell TVD. It must, net of the BASE-vs-FLOOR control exactly as JSD
-> is, before the `scoring/` snapshot is registered. This is an addition, not a
-> change to any registered rule.
+> **Code change made, 2026-08-09.** `scoring/divergence.py: total_variation`,
+> reported per cell and per class net of the BASE-vs-FLOOR control exactly as
+> JSD is; the worked table above is pinned verbatim in
+> `scoring/test_scoring_rules.py`, so the document and the code cannot disagree
+> about what 0.10 means without a test failing. It was an addition, not a change
+> to any registered rule — but the `scoring/` snapshot attached to Registration
+> 1 must be **re-tagged**, because `rules-registered-2026-08-09` predates it.
 
 ### φ needs no separate exclusion here, and that is not an oversight
 
@@ -125,6 +128,20 @@ and much stronger statement than "we did not detect one".
 If the CI is too wide to do either, that is the honest outcome and is reported as
 **INCONCLUSIVE — underpowered**, with the CI width given.
 
+**STABLE is always a claim about the perturbed channel, never about the agent** —
+every engine's decision also rests on channels the study deliberately holds
+fixed (prices, indicators, memory state), and an equivalence test on the news
+channel says nothing about them. For most engines the frozen-context framing
+carries that scoping. **For FinAgent it must be carried by name**: that engine
+sends the backbone chart images (the applicability audit's scope finding), and
+the image reaches the model *more directly than the news does* — the news
+crosses a ≤300-token LLM summary, the image is passed intact. The unperturbed
+channel is the less-attenuated and plausibly higher-weight one, so the strongest
+claim a passing equivalence test can license for FinAgent is **"stable to news
+rewording, visual channel held constant"** — in those words, never shortened to
+"stable". This is a distinct ground from §6's attenuation confound and the two
+are stated separately when reporting.
+
 ---
 
 ## 5. When an engine cannot be measured at all
@@ -164,6 +181,21 @@ Therefore, **registered in advance**:
    noise, not channel weight.
 5. The **qualitative** claim ("this engine is / is not sensitive") is comparable
    across engines. The magnitude is not.
+6. Attenuation has two components, and a report states both rather than folding
+   them into one "lossy stages" count: **transformation** (stages that rewrite
+   the news — a summary, an analyst report, a debate) and **dilution** (the news
+   being one of several parallel decision channels — four unperturbed analyst
+   reports in TradingAgents, an entire unperturbed image channel in FinAgent).
+   The candidate scan (`docs/candidate-scan.md`) found the two axes fully
+   independent in the field — an engine can pass news verbatim, zero lossy
+   stages, and still drown it among independently-fetched channels — so neither
+   number substitutes for the other.
+7. **For FinAgent, the unperturbed channel is the less-attenuated one.**
+   The chart image is passed to the backbone intact while the news crosses a
+   severe summarization stage. Registered here, in advance, so that a null on
+   FinAgent's news channel is read at its actual weight — and so §4's scoping
+   of any FinAgent stability claim is recognisable as pre-declared rather than
+   post-hoc.
 
 ---
 
@@ -220,6 +252,12 @@ rationalised afterwards:
   stronger result than a paraphrase doing so, because the semantic content is
   untouched by construction. On FinAgent it would be stronger still, since that
   engine is explicitly instructed to disregard unrelated market intelligence.
+- **A moved cell on FinAgent at all.** Its news channel crosses the severest
+  single summarization stage in the study, and its decision also leans on an
+  unperturbed image channel that reaches the backbone more directly (§6.7).
+  Rewording that survives both — moving the decision through a ≤300-token
+  summary while the chart holds still — is close to the strongest single-engine
+  result this design can produce.
 - **The attenuation ordering violated** (§6.3).
 - **A consistent DIRECTION across items** — the existing directional-shift
   diagnostic. Instability is directionless; a consistent push toward buy or sell
