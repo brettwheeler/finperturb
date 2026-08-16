@@ -1,0 +1,175 @@
+# Worklog — reconstructed
+
+**Written 2026-08-09, after the fact.** The FinMem arm's history landed in one
+import commit (`a252dc9`); this document is the reconstruction of the work
+sessions it contains, plus the monorepo-era work that followed. It is
+documentation, not evidence — where a claim needs proof, the proof is named in
+the entry's evidence field, and where there is no proof, the entry says
+*recollection* and means it.
+
+Entries are ordered by **track and dependency, not by calendar**. Work ran in
+parallel across tracks, and some of it originated outside this repo and was
+reproduced into it; a single timeline would fabricate an ordering that never
+existed. Where "originated" and "landed" differ, both are stated — the landed
+event is the checkable one.
+
+## The clock
+
+Calendar dates decorate; position relative to the boundary events is the
+load-bearing claim. Three ticks so far, two pending:
+
+| tick | event | anchor |
+|---|---|---|
+| **P** | pilot data exists — 630 rehearsal rows, 2026-08-08 → 2026-08-09 | log mtimes (`rehearsal_neg_momentum.jsonl` 08-08 12:09 through `rehearsal_replication.jsonl` 08-09 05:23); OSF Reg 1 disclosure |
+| **R** | scoring rules frozen — tag `rules-registered-2026-08-09` | the tag and its 22-test suite |
+| **M** | monorepo conversion, 2026-08-09 | commits `a252dc9`..`e095329` |
+| *F* | *fixture freeze / Registration 2 — pending* | |
+| *C* | *confirmatory runs — pending* | |
+
+Every entry below carries an epoch: **pre-P** (before any pilot row), **P→R**
+(after pilot data, before the rules froze), or **post-R**. That coordinate is
+the one a reviewer needs; nothing in the study turns on whether the wrapper
+preceded the corpus builder.
+
+Evidence grades: **anchored** (a timestamp or artifact outside anyone's memory),
+**reconstructed** (inferred from artifacts, stated basis), **recollection**.
+
+## Tracks
+
+Dependency joins: T1+T2 feed T3; T3+T4 feed T5; T5's data feeds T6's registered
+content; T6+T7 feed the registration. T4 never runs the agent — it and T3 were
+genuinely parallel.
+
+### T1 — Environment
+
+- **Containerized environment: image, compose, key-gated entrypoint.**
+  Dockerfile, compose, entrypoint refusing to start on missing keys, harness
+  venv baked at `/opt/harness-venv`. Epoch pre-P, first substantive work in the
+  arm repo. Evidence: reconstructed — everything downstream executes in this
+  container, so it precedes all of it; repo scaffold dates to 2026-07-23
+  (`0b8adc3`). Calendar: ~late July, recollection.
+
+### T2 — Agent
+
+- **Vendor FinMem at `be814aa`; freeze its dependency world.** Clone gitignored,
+  pin recorded, poetry install onto the named `agent-venvs` volume,
+  `finmem-lock.txt` committed. Epoch pre-P. Depends on T1 (the freeze is an
+  in-container act; the clone alone wasn't). Evidence: anchored for the pin
+  (clone's own `.git`), recollection for the date.
+- **Backbone probe and config renderer.** `probe_backbone.py`,
+  `render_config.py`, the rendered TOML proving published-default decoding
+  against the dated backbone snapshot (`gpt-5.4-mini-2026-03-17`). Epoch pre-P.
+  Could have preceded the vendor step — needs only the harness venv and a key;
+  order between these two is not recoverable and doesn't matter.
+
+### T3 — Wrapper & frozen contexts
+
+- **The wrapper: one `decide()` per call against a restored frozen context.**
+  `wrapper.py` snapshot/restores memory store, checkpoints and vector index
+  every call; `verify_wrapper.py` proves the reset. Epoch pre-P.
+- **Frozen contexts: smoke, flat and negative-momentum checkpoints.**
+  `check_momentum.py`, the `ckpt_*` and `result_*` trees. Epoch pre-P.
+- These two were **entangled, not ordered** — checkpoint generation runs the
+  agent, the wrapper restores checkpoints; development interleaved. Recorded as
+  a pair deliberately. Evidence: reconstructed from the artifacts; no basis for
+  sequencing within the pair.
+
+### T4 — Fixtures & corpus
+
+Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
+
+- **Corpus builder, verified on the smoke tier.** `build_corpus.py`,
+  `corpus_config.json`, `verify_corpus.py`, the 2-item smoke round-trip. Epoch
+  pre-P.
+- **Sanity tier.** SANITY-POS/NEG, BASE only — the positive control: does the
+  agent respond to unambiguous signal at all. Epoch pre-P.
+- **Rehearsal fixtures: borderline and replication tiers.** The 7 hand-written
+  items the pilot ran against — analyst-written, unaudited, and that fact later
+  became the +0.317 directional-drift lesson. Epoch pre-P by construction
+  (fixtures precede their runs). Evidence: anchored relative to P.
+
+### T5 — Runner & pilot
+
+- **Run matrix runner: append-only JSONL, stamped rows.** `run_matrix.py`;
+  item, class, action, status, backbone version, context stamp; logs never
+  edited. Epoch pre-P. Joins T3 and T4.
+- **Pilot execution.** 630 rows, four rehearsal runs. **This is tick P.**
+  Order within: neg-momentum 08-08, then flat / borderline / replication early
+  08-09. Evidence: anchored (log mtimes). Logs uncommitted per data policy;
+  reports regenerate from them by one command.
+
+### T6 — Scoring
+
+- **Scoring v1: φ, JSD net of control, item-level bootstrap.** First
+  `score_pilot.py` — decoding floor, BASE-vs-FLOOR control, directional-shift
+  diagnostic, marginal table, context-stamp pooling refusal. Epoch: straddles
+  P — drafted against the runner's schema, hardened against real rows.
+  *Originated* partly outside the repo (analysis drafting); *landed* pre-R.
+  Evidence: reconstructed. The honest admission: scorer-before-any-data was the
+  stronger posture and this only partly achieved it.
+- **Pilot findings → gaps list → handoff.**
+  `docs/handoff-item2-scoring-rules.md`: the S01 tie, the φ = 0.638
+  uninterpretable flip rate, the 2,000-draw null with no multiplicity
+  correction, converted to a scoped work order with the five open decisions
+  flagged for the lead. Epoch P→R, necessarily — the doc quotes observed
+  failures. Evidence: anchored (the doc; the failures it cites are in the logs).
+- **Scoring rules per gaps item 2: tie rule, φ gate, formalized null.**
+  `divergence.py`, `permutation_null.py`, the `score_pilot.py` rework,
+  `test_scoring_rules.py`. Old quantities reproduce byte-identical; the S01 tie
+  is the targeted test. **This is tick R** — tag `rules-registered-2026-08-09`.
+  Evidence: anchored. The causal order pilot→rules is real, deliberate, and
+  disclosed in Registration 1 — three rules were forced by observed failures
+  and could not have been written blind.
+
+- **TVD, the materiality scale (readout-rule §2's required addition).**
+  `divergence.total_variation`, net-of-control summary and per-cell tables in
+  `score_pilot.py`, the §2 worked table pinned verbatim in the test suite
+  (25 tests from 22). An addition, not a change to any registered rule — but it
+  obliges a re-tag: `rules-registered-2026-08-09` predates it, so the snapshot
+  attached to Registration 1 must be the re-tagged one. Epoch post-R,
+  2026-08-09. Anchored (the commit landing this entry's artifacts).
+
+### T7 — Decisions & registration
+
+- **Drop N2 for FinMem: the engine injects the ticker independently of the
+  news.** `excluded_klasses` plus the builder's refuse-without-reason guard;
+  rationale in the arm README citing `puppy/prompts.py:16`. Lead's decision,
+  dated **2026-08-08** — anchored. The evidence for the drop was available from
+  the moment of the clone; the decision floated to fixture-finalization. The
+  lesson — audit the source seam *before* building fixtures against it — became
+  gaps item 3 and was applied to both sibling engines before they run.
+- **Applicability audit, all three engines.** `docs/applicability-audit.md`,
+  the class × engine matrix; N2 dies on all three, generalized to a finding
+  about identity-anchoring agents. Epoch post-R, 2026-08-09. Anchored
+  (`f7790df`).
+- **Read-out rule and OSF Registration 1 draft.** What each outcome licenses,
+  fixed before confirmatory data. Epoch post-R, 2026-08-09. Anchored
+  (`e095329`); in-flight edits continue past it.
+- **Candidate-engine scan, and the scoping it forced.**
+  `docs/candidate-scan.md`: four non-subject engines scouted at HEAD
+  (provenance-graded as such); N2's drop generalizes 6-for-6 with the identity
+  mechanism 7-for-7; attenuation split into transformation vs dilution;
+  FinAgent's image channel confirmed not unique (QuantAgent/Xiong) and, being
+  less attenuated than the news, made a named ground for scoping any FinAgent
+  STABLE claim. Landed as readout-rule §4/§6.6–6.7/§8 edits, registered before
+  confirmatory data. Epoch post-R, 2026-08-09. Anchored (the doc and the
+  readout-rule diff in this entry's commit).
+
+### T8 — Monorepo
+
+- **Conversion: one repo, one arm per engine; scoring at the root.** The former
+  `finperturb-finmem` repo rehomed entire as `arms/finmem`; TradingAgents and
+  FinAgent cloned and pinned, no harnesses. Only the path assumptions the move
+  broke were changed; 22/22 tests and a byte-identical report re-generation
+  verified the rehoming. **This is tick M**, 2026-08-09. Anchored
+  (`a252dc9`..`e095329`).
+
+## What this log is not
+
+Not a substitute for the history that should have existed — the thirteen-commit
+breakdown this reconstruction follows is the lesson, not the repair. Nothing
+here backdates anything: commit dates, tag dates and log mtimes stay what they
+are, and where this document disagrees with an anchored artifact, the artifact
+wins. Going forward the log is contemporaneous or it is nothing — a chunk gets
+its entry (and its commit) at the boundary where you would later want to prove
+what you knew.
