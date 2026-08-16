@@ -56,3 +56,26 @@ Each arm vendors its engine under `arms/<arm>/agents/<engine>` as an ordinary
 clone, **gitignored but pinned**: the clone's own `.git` records the pin, the
 arm's README states it, and the engine is never modified — perturbations enter
 through each arm's harness, upstream code stays as published.
+
+## AI provenance
+
+Most of the code and prose in this repo — the scoring rules, the harnesses,
+the docs, this README — was written by Claude (Anthropic, Opus- and
+Fable-class models)
+under the author's direction, and every commit after the initial scaffold
+carries a `Co-Authored-By` trailer saying so. Stated plainly rather than left
+to be inferred from trailers: candidate methods typically originated with the
+model, and so did the exhaustiveness — the audits, the test suite, the
+evidence discipline are the model working angles the author directed but did
+not work alone. The author's role was direction and ratification — set the question,
+require the rationale for each proposed method, check it against independent
+reading, adopt or reject it on that basis, and make every registration
+decision. The claim on record is understanding and accountability, not
+unaided capability. The full disclosure as it appears in the manuscript is
+[docs/ai-disclosure.md](docs/ai-disclosure.md).
+
+What the study asks a reviewer to trust is accordingly not authorship but
+mechanism: the scoring rules froze at tag `rules-registered-2026-08-09`
+before any confirmatory run, the test suite pins their behavior, and every
+report prints the repo SHA it was scored under. Who typed the rules matters
+less than the fact that they cannot silently change.
