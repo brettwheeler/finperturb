@@ -26,6 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import divergence as dv  # noqa: E402
 import permutation_null as pn  # noqa: E402
 import score_pilot as sp  # noqa: E402
 
@@ -184,6 +185,44 @@ def test_family_is_the_whole_grid_not_one_class():
 
 
 # --------------------------------------------------------------------------
+# ADDITION, registered 2026-08-09 (readout-rule §2) -- TVD, the materiality scale
+# --------------------------------------------------------------------------
+# An addition, not a change to any rule above: JSD keeps significance, TVD
+# carries materiality, and the moved/not-moved verdict lives in the read-out
+# rule, never in the scorer.
+
+def test_tvd_matches_the_readout_rules_worked_table():
+    """The exact table printed in docs/readout-rule.md §2. If any row here moves,
+    the registered document and the code disagree about what 0.10 means."""
+    d = dv.total_variation
+    assert abs(d({"buy": 1.0}, {"buy": 0.9, "hold": 0.1}) - 0.10) < 1e-12
+    assert abs(d({"buy": 0.7, "hold": 0.3}, {"buy": 0.6, "hold": 0.4}) - 0.10) < 1e-12
+    assert abs(d({"buy": 0.7, "hold": 0.3}, {"buy": 0.5, "hold": 0.5}) - 0.20) < 1e-12
+    assert abs(d({"buy": 0.7, "hold": 0.3}, {"buy": 0.3, "hold": 0.7}) - 0.40) < 1e-12
+    assert abs(d({"buy": 1.0}, {"sell": 1.0}) - 1.0) < 1e-12
+
+
+def test_tvd_is_baseline_independent_where_jsd_is_not():
+    """The property that made TVD the materiality scale: a 10-point shift is 0.10
+    from ANY baseline, while the same shift's JSD depends on where it started --
+    which is why a single JSD threshold under-flags unstable-baseline items."""
+    ten_from_unanimous = dv.total_variation({"buy": 1.0}, {"buy": 0.9, "hold": 0.1})
+    ten_from_split = dv.total_variation({"buy": 0.7, "hold": 0.3}, {"buy": 0.6, "hold": 0.4})
+    assert abs(ten_from_unanimous - ten_from_split) < 1e-12
+    jsd_unanimous = dv.jensen_shannon({"buy": 1.0}, {"buy": 0.9, "hold": 0.1})
+    jsd_split = dv.jensen_shannon({"buy": 0.7, "hold": 0.3}, {"buy": 0.6, "hold": 0.4})
+    assert abs(jsd_unanimous - jsd_split) > 0.01
+
+
+def test_tvd_identity_symmetry_and_empty():
+    assert dv.total_variation({"buy": 0.5, "sell": 0.5}, {"sell": 0.5, "buy": 0.5}) == 0.0
+    a, b = {"buy": 0.7, "hold": 0.3}, {"buy": 0.2, "sell": 0.8}
+    assert abs(dv.total_variation(a, b) - dv.total_variation(b, a)) < 1e-12
+    empty = dv.total_variation({}, {"buy": 1.0})
+    assert empty != empty  # NaN, the same stance as `disagreement` on <2 runs
+
+
+# --------------------------------------------------------------------------
 # END TO END -- the tie path against the log that actually contains a tie
 # --------------------------------------------------------------------------
 
@@ -208,6 +247,8 @@ def test_neg_momentum_log_exercises_the_tie_path(tmp_path=None):
     assert "TIE (buy, sell)" in report          # baseline table names it
     assert "not interpretable (tied baseline)" in report
     assert "| S01 | 0.0913 |" in report          # still in the per-item JSD table
+    assert "## MATERIALITY — total-variation distance" in report
+    assert "### Per-item TVD" in report          # the read-out rule reads cells, not means
     out.unlink(missing_ok=True)
 
 

@@ -6,7 +6,7 @@ divergence the scorer reports -- a null built from a different statistic than th
 observed value is not a null of anything -- and importing it back out of
 `score_pilot` would be circular.
 
-There is no policy in this file. Three pure functions over a list of action
+There is no policy in this file. Four pure functions over a list of action
 strings, no seeds, no thresholds, no logs.
 """
 
@@ -36,6 +36,21 @@ def disagreement(actions: List[str]) -> float:
     counts = Counter(actions)
     total = sum(counts.values())
     return 1.0 - sum((n / total) ** 2 for n in counts.values())
+
+
+def total_variation(p: Dict[str, float], q: Dict[str, float]) -> float:
+    """0.5 * L1: the share of probability mass that moved.
+
+    The registered materiality scale (docs/readout-rule.md §2). It is linear in
+    action-share change and baseline-independent, so 0.10 always means "a tenth
+    of runs decided differently" -- which JSD cannot promise, and why JSD is the
+    significance statistic and never the materiality one. A distance to an empty
+    distribution is NaN, not a number: same stance as `disagreement`.
+    """
+    if not p or not q:
+        return float("nan")
+    keys = set(p) | set(q)
+    return 0.5 * sum(abs(p.get(k, 0.0) - q.get(k, 0.0)) for k in keys)
 
 
 def jensen_shannon(p: Dict[str, float], q: Dict[str, float]) -> float:

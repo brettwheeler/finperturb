@@ -62,7 +62,7 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 
-from divergence import disagreement, distribution, jensen_shannon
+from divergence import disagreement, distribution, jensen_shannon, total_variation
 from permutation_null import NULL_DRAWS_DEFAULT, adjust_family, derive_rng, null_pvalue
 
 
@@ -437,6 +437,53 @@ def main(argv=None) -> int:
     # treat three screens as three separate questions and correct each too gently.
     adjusted, n_tests, undefined_cells = adjust_family(pvalue_grid)
 
+    # MATERIALITY SCALE: total-variation distance, per cell, net of the same
+    # BASE-vs-FLOOR control as JSD -- the addition the read-out rule's §2
+    # requires before registration. TVD is linear in action-share change and
+    # baseline-independent, so its threshold means the same thing on a unanimous
+    # item and a 70/30 one, which is exactly where a single JSD threshold fails.
+    # It carries no p-value and governs nothing here: significance stays with
+    # JSD's permutation null, and the moved/not-moved verdict lives in
+    # docs/readout-rule.md, not in this report.
+    tvd_control = {
+        item: total_variation(distribution(base_actions[item]), distribution(floor_actions[item]))
+        for item in items
+        if base_actions[item] and floor_actions[item]
+    }
+    tvd_by_klass: Dict[str, Dict[str, float]] = defaultdict(dict)
+    for item in items:
+        if not base_actions[item]:
+            continue
+        base_dist = distribution(base_actions[item])
+        for klass in VARIANT_KLASSES:
+            actions = variant_actions[item].get(klass, [])
+            if actions:
+                tvd_by_klass[klass][item] = total_variation(distribution(actions), base_dist)
+
+    rng_tvd = derive_rng(args.seed, "tvd_bootstrap")
+    tvd_summary = {}
+    for klass in VARIANT_KLASSES:
+        per_item = tvd_by_klass.get(klass, {})
+        contributing = sorted(per_item)
+        if not contributing:
+            continue
+        raw = float(np.mean([per_item[i] for i in contributing]))
+        control = float(np.nanmean([tvd_control.get(i, np.nan) for i in contributing]))
+        draws = []
+        for _ in range(BOOTSTRAP_DRAWS):
+            picked = rng_tvd.choice(contributing, size=len(contributing), replace=True)
+            r = np.mean([per_item[i] for i in picked])
+            c = np.nanmean([tvd_control.get(i, np.nan) for i in picked])
+            draws.append(r - c)
+        low, high = np.percentile(draws, [2.5, 97.5])
+        tvd_summary[klass] = {
+            "n_items": len(contributing),
+            "raw": raw,
+            "control": control,
+            "net": raw - control,
+            "ci": (float(low), float(high)),
+        }
+
     rng_jsd = derive_rng(args.seed, "jsd_bootstrap")
     jsd_summary = {}
     for klass in VARIANT_KLASSES:
@@ -485,6 +532,7 @@ def main(argv=None) -> int:
     add(f"| scoring code | finperturb `{core_version()}` |")
     add("| tied baseline | excluded from flip-rate scoring, retained for JSD |")
     add("| governing statistic | JSD + permutation null, at every phi |")
+    add("| materiality scale | net TVD per cell: variant vs base, minus the BASE-vs-FLOOR control |")
     add(f"| flip rate quotable when | phi < {args.phi_interpretable_max} and baseline not tied |")
     add(f"| permutation resamples | {args.null_draws:,} (smallest reportable p = {1 / (args.null_draws + 1):.4f}) |")
     add(f"| root seed | {args.seed} (streams derived by name) |")
@@ -575,6 +623,49 @@ def main(argv=None) -> int:
             else:
                 cells.append("—")
         control = f"{jsd_control[item]:.4f}" if item in jsd_control else "—"
+        add(f"| {item} | {control} | " + " | ".join(cells) + " |")
+
+    add("\n## MATERIALITY — total-variation distance\n")
+    add("TVD is the read-out rule's materiality scale: the share of runs that would have")
+    add("to land on a different action to explain the shift, so 0.10 always means a tenth")
+    add("of runs decided differently — on a unanimous baseline and a 70/30 one alike,")
+    add("which is the linearity JSD does not have. It carries no p-value: significance")
+    add("lives in the JSD tables above, materiality lives here, and the read-out rule")
+    add("requires BOTH before a cell is declared moved. This report, as ever, declares")
+    add("nothing.\n")
+    add("| klass | items | raw TVD | control TVD | net | 95% CI (bootstrap over items) |")
+    add("|---|---|---|---|---|---|")
+    for klass in VARIANT_KLASSES:
+        if klass in tvd_summary:
+            s = tvd_summary[klass]
+            add(
+                f"| {klass} | {s['n_items']} | {s['raw']:.4f} | {s['control']:.4f} | {s['net']:+.4f} | "
+                f"[{s['ci'][0]:+.4f}, {s['ci'][1]:+.4f}] |"
+            )
+        else:
+            add(f"| {klass} | 0 | — | — | — | not run |")
+
+    add("\n### Per-item TVD\n")
+    add("Each cell reads `raw (net)`, where net subtracts THIS item's own BASE-vs-FLOOR")
+    add("control — identical text, so the TVD sampling alone produces at these run")
+    add("counts. The read-out rule's materiality criterion is applied to the net value,")
+    add("per cell, by the lead — never by this script.\n")
+    add(
+        "| item | control (BASE vs FLOOR) | "
+        + " | ".join(f"{k} raw (net)" for k in VARIANT_KLASSES)
+        + " |"
+    )
+    add("|---|---|" + "---|" * len(VARIANT_KLASSES))
+    for item in sorted(items):
+        cells = []
+        for klass in VARIANT_KLASSES:
+            if item in tvd_by_klass.get(klass, {}):
+                value = tvd_by_klass[klass][item]
+                control_value = tvd_control.get(item, float("nan"))
+                cells.append(f"{value:.4f} ({value - control_value:+.4f})")
+            else:
+                cells.append("—")
+        control = f"{tvd_control[item]:.4f}" if item in tvd_control else "—"
         add(f"| {item} | {control} | " + " | ".join(cells) + " |")
 
     add("\n## SECONDARY — modal flip rates\n")
