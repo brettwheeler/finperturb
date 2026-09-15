@@ -79,3 +79,14 @@ mechanism: the scoring rules froze at tag `rules-registered-2026-08-09`
 before any confirmatory run, the test suite pins their behavior, and every
 report prints the repo SHA it was scored under. Who typed the rules matters
 less than the fact that they cannot silently change.
+
+**Status.** The confirmatory design is registered and frozen (OSF, DOI
+below). Confirmatory runs are not scheduled: the channel-applicability
+audit that this repository reports is a precondition on running the suite,
+and establishing it was prior to spending against it. The harness, the
+frozen scoring rules, the read-out rule and the protocol are released for
+any team that wishes to execute the design; Registration 2 (fixture freeze
+and run matrix) is filed by whoever runs it, in their own account.
+
+**Licence.** Code is Apache-2.0. Documentation under `docs/`, and the
+registration attachments, are released under CC-BY 4.0.

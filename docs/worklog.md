@@ -182,6 +182,27 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   are lead decisions enforceable at the registered interception point, not
   open verdicts, and are listed for Registration 2.
 
+- **Mechanical citation verification, and Registration 1 amended for the
+  FinAgent price-frame condition.** `scripts/verify_citations.py` resolves
+  every citation in both applicability matrices at the recorded pin with
+  `git show`, never the working tree; pin mismatch aborts; statuses ok /
+  wide / missing_file / line_out_of_range / external; report at
+  `docs/citation-check-report.md` with repo SHA, UTC date and the committed
+  SHA-256 of each matrix; `tests/test_verify_citations.py` pins the
+  behaviour. Result at filing: 240 citations, 234 ok, 5 wide, 1 external
+  (upstream issue #814), none failing. Registration 1 draft amended before
+  filing (edits, not deviations — nothing had been filed): the frozen-design
+  framing; the FinAgent price-frame condition in the held-constant list;
+  limitation 3 rewritten to separate the constant-channel limit from the
+  post-decision-image contamination it does not remedy; the Registration 2
+  any-party sentence; a scope note for the material audit; the verification
+  sentence in reproducibility. Attachments 1–7 remain byte-identical to
+  `reg1-snapshot-2026-08-16`; attachments 8–10 (material audit, its matrix,
+  the citation report) are extracted from `reg1-filing-2026-09`, and the
+  filed worklog is the snapshot's, so this entry is not in it. Epoch
+  post-R, pre-filing, 2026-09-15. Evidence: anchored (this commit and the
+  filing tag).
+
 ### T8 — Monorepo
 
 - **Conversion: one repo, one arm per engine; scoring at the root.** The former

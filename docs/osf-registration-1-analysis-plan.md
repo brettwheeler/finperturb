@@ -4,12 +4,27 @@
 template. Registration 2 (confirmatory design: frozen fixtures, run matrix) is a
 separate registration made at fixture freeze, before any confirmatory run.
 
-**Attach to the registration:** a snapshot of `scoring/` at tag
-`reg1-snapshot-2026-08-16`, `docs/readout-rule.md`, `docs/applicability-audit.md`,
-`docs/applicability-matrix.json`, `docs/candidate-scan.md` (cited by the
-read-out rule §6.6; scouting-grade and labelled as such in its own header),
-`docs/worklog.md` (the provenance reconstruction, evidence grades included),
-`docs/ai-disclosure.md`. Embargo until publication, ended early at acceptance.
+**Attach to the registration (ten files).** Attachments 1–7 are byte-identical
+to tag `reg1-snapshot-2026-08-16` (commit `3f5be87`); attachments 8–10 postdate
+that tag and are extracted from tag `reg1-filing-2026-09`.
+
+1. `scoring-snapshot-reg1-2026-08-16.zip` — the authoritative rules snapshot
+2. `readout-rule.md`
+3. `applicability-audit.md`
+4. `applicability-matrix.json`
+5. `candidate-scan.md` (cited by the read-out rule §6.6; scouting-grade and
+   labelled as such in its own header)
+6. `worklog.md` (the provenance reconstruction, evidence grades included)
+7. `ai-disclosure.md`
+8. `applicability-audit-material.md` — postdates the snapshot (audited
+   2026-09-15); included because it establishes the FinAgent price-frame
+   design condition
+9. `applicability-matrix-material.json`
+10. `citation-check-report.md` — every source citation in attachments 4 and 9
+    verified mechanically against the pinned clones by
+    `scripts/verify_citations.py`
+
+Public, no embargo.
 
 ---
 
@@ -43,6 +58,13 @@ pinned upstream source, with no modification to the agent:
 | FinMem | arXiv 2311.13743 | `be814aa` |
 | TradingAgents | arXiv 2412.20138 | `a33fd4c` |
 | FinAgent | arXiv 2402.18485 | `17248a0` |
+
+The design is frozen and complete. The registrant does not have confirmatory
+runs scheduled; this registration fixes the confirmatory design in advance of
+data collection by any party. The channel-applicability audits attached here
+establish, per engine and per class, which perturbations can express their
+manipulation against that engine's input path, and are a precondition on
+executing the suite rather than a step within it.
 
 ## Hypotheses
 
@@ -104,6 +126,14 @@ The protocol, the class × engine matrix and every citation are attached
 - **N1 and N3 run on all three, attenuated differently**, which is what H3
   encodes.
 
+A companion audit of the five material perturbation classes across the same
+three engines is attached (`docs/applicability-audit-material.md`). This
+registration does not register a material-class design; the audit is included
+because it establishes the FinAgent price-frame condition below, because it
+records that the M4 class has no target on any engine audited, and because the
+record should show what was known at filing. Any material-class confirmatory
+design is a separate registration.
+
 **Engine modification:** none. Fixtures are injected at each engine's own
 sanctioned seam — memory rows (FinMem), a registered data vendor
 (TradingAgents), the processed-data pipeline (FinAgent).
@@ -117,6 +147,15 @@ alias), decoding settings at each engine's published defaults, the frozen contex
 — **the visual channel**, which is a design condition rather than an incidental
 detail, because that engine sends chart images to the model and this study
 perturbs text only.
+
+**FinAgent price-frame condition.** For the FinAgent arm, the substituted price
+frame supplied at the registered interception point terminates at the decision
+date. Under the engine's base entry point the K-line plot is not informed that
+it is out of training mode and can render up to fourteen post-decision sessions
+into the image sent to the backbone; holding the visual channel constant across
+cells does not remedy this, because a contaminated baseline contaminates every
+comparison drawn against it. All FinAgent verdicts and all FinAgent results are
+stated under this precondition.
 
 ---
 
@@ -183,6 +222,10 @@ an item share a headline, a baseline and a memory state; resampling runs would
 treat repeats as independent and produce intervals several times too narrow.
 Intervals over fewer than roughly 10 items are uninformative and are reported as
 such.
+
+Registration 2 — fixture freeze, item count, repeats and variants per class —
+may be filed by any party executing this design, in their own account. Nothing
+in this registration commits any party to a date for it.
 
 ### Stopping rule
 
@@ -321,17 +364,31 @@ value and never in place of it.
 arm's container is a lockfile for everything below Python. The scoring code is one
 copy shared by all arms; every report prints the SHA it ran at, so "both engines
 were scored under the same rules" is checked rather than assumed. Every reported
-figure regenerates from the raw logs by one command.
+figure regenerates from the raw logs by one command. Every source citation in
+both applicability matrices is verified mechanically against the pinned clones
+by `scripts/verify_citations.py`, whose report is attached. Verification
+resolves each cited path at the recorded pin rather than in the working tree.
+
+**Attachment provenance.** Attachments 1–7 are byte-identical to tag
+`reg1-snapshot-2026-08-16` (commit `3f5be87`); attachments 8–10 postdate that
+tag and are extracted from tag `reg1-filing-2026-09`.
 
 **Known limitations, registered rather than discovered:**
 
 1. **N2 is untestable** against all three engines (see Design plan).
 2. **Attenuation confounds cross-engine magnitude** (H3).
-3. **FinAgent is multimodal** and this study perturbs text only; its figures
-   describe one channel of a two-channel agent — and the unperturbed image
-   channel reaches the backbone *less* attenuated than the perturbed news,
-   which crosses a ≤300-token summary. Any FinAgent stability claim is scoped
-   accordingly (read-out rule §4, §6.7), registered here in advance.
+3. **Visual channel, FinAgent.** The engine is multimodal: base64 K-line
+   payloads with moving-average and Bollinger overlays reach the backbone as
+   image content, so a text-only perturbation exercises one channel of a
+   two-channel agent. Two consequences are registered. First, the visual
+   channel is held constant across all cells, and φ and JSD for this engine
+   are reported with that limit stated (read-out rule §4, §6.7). Second, and
+   separately, the image can carry post-decision price action under the
+   engine's base entry point; the design condition in § Design plan closes
+   this at the interception point, and results from this arm are valid only
+   under that condition. Whether the upstream published experiments used the
+   affected entry point is not established by source reading alone and is not
+   claimed here.
 4. **Fabricated-fixture pilot** informed the analysis rules (see Existing data).
 5. **Single backbone model version** per run matrix; results do not generalize
    across backbones.

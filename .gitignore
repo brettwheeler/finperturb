@@ -7,3 +7,6 @@ __pycache__/
 # Defense in depth: keys never, at any level, whatever an arm forgets.
 .env*
 !.env.example
+
+# Local agent-session state; never part of the registered record.
+.claude/
