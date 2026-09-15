@@ -36,14 +36,16 @@ never an environment variable.
 
 ## Running
 
-Scoring runs from the repo root, against any arm's logs:
+Scoring runs from the repo root, against any arm's logs (`$(pwd)` is the
+repo root in WSL or a Linux/macOS shell; in Git Bash use `$(pwd -W)`, since
+MSYS path conversion mangles the volume spec; in PowerShell `${PWD}`):
 
 ```bash
-docker run --rm -e FP_REQUIRE_KEYS=0 -v C:\Users\brett\finperturb:/work -w /work finperturb-finmem:dev python scoring/score_pilot.py --log arms/finmem/data/runs/<run>.jsonl --out arms/finmem/data/runs/<report>.md
+docker run --rm -e FP_REQUIRE_KEYS=0 -v "$(pwd):/work" -w /work finperturb-finmem:dev python scoring/score_pilot.py --log arms/finmem/data/runs/<run>.jsonl --out arms/finmem/data/runs/<report>.md
 ```
 
 ```bash
-docker run --rm -e FP_REQUIRE_KEYS=0 -v C:\Users\brett\finperturb:/work -w /work finperturb-finmem:dev python -m pytest scoring/test_scoring_rules.py -q
+docker run --rm -e FP_REQUIRE_KEYS=0 -v "$(pwd):/work" -w /work finperturb-finmem:dev python -m pytest scoring/test_scoring_rules.py -q
 ```
 
 Agent and harness work happens inside the arm — see each arm's own README.
@@ -79,6 +81,35 @@ mechanism: the scoring rules froze at tag `rules-registered-2026-08-09`
 before any confirmatory run, the test suite pins their behavior, and every
 report prints the repo SHA it was scored under. Who typed the rules matters
 less than the fact that they cannot silently change.
+
+**Roles, and the commit identity.** The documents and code speak of a
+*project lead*, an *analyst* (a project role, not the analyst agents inside
+TradingAgents) and an *implementer*, and the commits are authored as *Dev
+team*. The study was scoped with a corporate sponsor that was to supply the
+analyst and implementation roles; the sponsor withdrew before any
+confirmatory work, which is also the gap in commit activity between the
+registration snapshot and the September work. The lead was always the
+author, who is now the only person on the project: every decision the record
+attributes to the lead is the author's, the rehearsal fixtures described as
+analyst-written are the author's own hand-written ones, the one work order
+addressed to an implementer (`docs/handoff-item2-scoring-rules.md`) went to
+a Claude session as the provenance paragraph above records, and the *Dev
+team* identity dates from the sponsored arrangement and is kept rather than
+rewritten, because history is not edited here. The role vocabulary stays
+where it appears in the frozen registration attachments, whose bytes cannot
+change.
+
+**Section references.** Citations of the form `§n.n` in the arm READMEs, the
+FinMem Dockerfile and compose file, the harness docstrings and the fixture
+notes refer to the project's internal build guide — the working
+specification the harness was built against — and the *gaps list* named in
+the arm READMEs and the session handoff is that document's open-items list.
+Neither is published. Documents that cite their own sections (the read-out
+rule, the registration text) say so, or are self-evidently internal. The
+references are kept because they record which requirement each piece of code
+implements; nothing a reviewer needs to check depends on resolving them,
+since every registered rule is stated in full in `scoring/README.md`,
+`docs/readout-rule.md` and the registration text.
 
 **Status.** The confirmatory design is registered and frozen (OSF, DOI
 below). Confirmatory runs are not scheduled: the channel-applicability

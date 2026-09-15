@@ -2,9 +2,11 @@
 
 Does a published LLM trading agent change its decision when the news is reworded
 without changing its meaning? This arm is the harness that finds out for FinMem
-([arXiv 2311.13743](https://arxiv.org/abs/2311.13743), pinned at `be814aa`). See
-the build guide for what is being measured and why the pedantic parts are the
-experiment; this file only covers **how to run the box**.
+([arXiv 2311.13743](https://arxiv.org/abs/2311.13743), pinned at `be814aa`). The
+measurement itself — what is being measured and why the pedantic parts are the
+experiment — is specified in the project's internal build guide, which is not
+published; the `§n.n` references throughout this arm are to it (see the root
+README, *Section references*). This file only covers **how to run the box**.
 
 **One arm per agent under test** — see the repo-root README for the monorepo
 layout. Each arm keeps its own image, compose project and dependency world,
@@ -78,14 +80,16 @@ The container image carries `git config --system safe.directory '*'` so the SHA
 resolves from inside Docker; without it the report says
 `unknown (not a git checkout)` against a bind mount git refuses to read.
 
-Scoring runs from the repo root, against this arm's logs:
+Scoring runs from the repo root, against this arm's logs (`$(pwd)` is the
+repo root in WSL or a Linux/macOS shell; in Git Bash use `$(pwd -W)`, since
+MSYS path conversion mangles the volume spec; in PowerShell `${PWD}`):
 
 ```bash
-docker run --rm -e FP_REQUIRE_KEYS=0 -v C:\Users\brett\finperturb:/work -w /work finperturb-finmem:dev python -m pytest scoring/test_scoring_rules.py -q
+docker run --rm -e FP_REQUIRE_KEYS=0 -v "$(pwd):/work" -w /work finperturb-finmem:dev python -m pytest scoring/test_scoring_rules.py -q
 ```
 
 ```bash
-docker run --rm -e FP_REQUIRE_KEYS=0 -v C:\Users\brett\finperturb:/work -w /work finperturb-finmem:dev python scoring/score_pilot.py --log arms/finmem/data/runs/<run>.jsonl --out arms/finmem/data/runs/<report>.md
+docker run --rm -e FP_REQUIRE_KEYS=0 -v "$(pwd):/work" -w /work finperturb-finmem:dev python scoring/score_pilot.py --log arms/finmem/data/runs/<run>.jsonl --out arms/finmem/data/runs/<report>.md
 ```
 
 ## Venvs

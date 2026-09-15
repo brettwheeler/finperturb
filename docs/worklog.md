@@ -84,7 +84,7 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
 - **Sanity tier.** SANITY-POS/NEG, BASE only — the positive control: does the
   agent respond to unambiguous signal at all. Epoch pre-P.
 - **Rehearsal fixtures: borderline and replication tiers.** The 7 hand-written
-  items the pilot ran against — analyst-written, unaudited, and that fact later
+  items the pilot ran against — the author's own, unaudited, and that fact later
   became the +0.317 directional-drift lesson. Epoch pre-P by construction
   (fixtures precede their runs). Evidence: anchored relative to P.
 
@@ -198,21 +198,31 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   any-party sentence; a scope note for the material audit; the verification
   sentence in reproducibility. Attachments 1–7 remain byte-identical to
   `reg1-snapshot-2026-08-16`; attachments 8–10 (material audit, its matrix,
-  the citation report) are extracted from `reg1-filing-2026-09`, and the
-  filed worklog is the snapshot's, so this entry is not in it. Epoch
+  the citation report) are extracted from `reg1-filing-2026-09b`, and the
+  filed worklog is the snapshot's, so this entry is not in it. A first
+  filing tag, `reg1-filing-2026-09`, was cut and pushed before the read-out
+  rule's PROPOSED constants had been ratified in the registration text and
+  before the prior public report of the FinAgent K-line condition had been
+  credited; it stays in history as the record of that, and is superseded by
+  `reg1-filing-2026-09b`. Epoch
   post-R, pre-filing, 2026-09-15. Evidence: anchored (this commit and the
   filing tag).
 
-- **FinAgent K-line lookahead: disclosure record drafted, not sent.**
+- **FinAgent K-line lookahead: prior public report located; not sent.**
   `docs/finagent-lookahead-disclosure.md`. Source reading establishes that
   three upstream entry points (`tools/main.py`, `tools/main_mi_w_decision.py`,
   `tools/main_strategy.py`) call the K-line plotter without passing `mode`, so
   the validation-phase chart spans `look_forward_days = 14` sessions past the
   decision date, and that the upstream README's run instructions name two of
   them; whether the paper's reported figures came from those entry points is
-  not recoverable from source and is not claimed. Recipient and send date
-  pending the lead. Epoch post-R, pre-filing, 2026-09-15. Evidence: anchored
-  (this commit; every line cited is verifiable at the pin).
+  not recoverable from source and is not claimed. The author then located a
+  prior public report of the same line (DVampire/FinAgent issue #2,
+  2025-04-14, unanswered; repository dormant since 2024-08-31) and decided
+  not to send a separate report. The audit is recorded as an independent
+  confirmation, not a discovery; credit added to the material audit, its
+  matrix, and registration limitation 3. Epoch post-R, pre-filing,
+  2026-09-15. Evidence: anchored (this commit; every line cited is verifiable
+  at the pin; the issue URL is external and dated).
 
 - **Free analyses after the filing tag, all exploratory.** (1) N3 distractor
   incorporation, `scripts/analyze_n3_incorporation.py` →

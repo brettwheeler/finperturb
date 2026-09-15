@@ -430,6 +430,11 @@ therefore carries up to fourteen days of post-decision prices — the market's
 actual reaction to the true event — into the low-level reflection and from there
 into the decision. The three `main_mi_w_*` entry points pass `mode` and truncate
 (`tools/main_mi_w_low_w_high_w_tool_w_decision.py:231`; the other two at `:232`).
+**Prior report.** This condition was reported publicly upstream on 2025-04-14
+(`https://github.com/DVampire/FinAgent/issues/2`, quoting the same line and naming the
+leakage; unanswered by the maintainers as of 2026-09-15). The author located
+that report after this audit was written; the audit's reading is an
+independent confirmation of it, not a discovery, and is credited accordingly.
 Under `tools/main.py` with the upstream dataset layout, **no perturbation class,
 null or material, measures news sensitivity**, because the decision is made with
 the answer in view. The registered interception point closes this without
@@ -572,7 +577,8 @@ correctly:
 - TradingAgents' fine-grained lossy count is at least three rewrites to the
   decision-maker, who never sees a report.
 - FinAgent's K-line image, under the base config's entry point and the
-  upstream dataset layout, includes fourteen post-decision days. This affects
+  upstream dataset layout, includes fourteen post-decision days (reported
+  publicly upstream on 2025-04-14, FinAgent issue #2, unanswered). This affects
   N1 and N3 on FinAgent exactly as it affects the material classes, and it is
   closed by the harness's substituted price frame ending at the decision date.
 

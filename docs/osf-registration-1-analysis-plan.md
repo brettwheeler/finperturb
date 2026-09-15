@@ -6,7 +6,7 @@ separate registration made at fixture freeze, before any confirmatory run.
 
 **Attach to the registration (ten files).** Attachments 1–7 are byte-identical
 to tag `reg1-snapshot-2026-08-16` (commit `3f5be87`); attachments 8–10 postdate
-that tag and are extracted from tag `reg1-filing-2026-09`.
+that tag and are extracted from tag `reg1-filing-2026-09b`.
 
 1. `scoring-snapshot-reg1-2026-08-16.zip` — the authoritative rules snapshot
 2. `readout-rule.md`
@@ -168,7 +168,7 @@ the analysis plan.** Specifically:
 
 A pilot of 630 rows was run on the FinMem arm between 2026-08-08 and 2026-08-09,
 using **fabricated fixtures** (7 hand-written items, synthetic price series, no
-real market data) with **analyst-written, unaudited** variants, against
+real market data) with **the author's own unaudited variants**, against
 `gpt-5.4-mini-2026-03-17`. It was instrument development, logged as such at the
 time, and produced no findings.
 
@@ -371,7 +371,17 @@ resolves each cited path at the recorded pin rather than in the working tree.
 
 **Attachment provenance.** Attachments 1–7 are byte-identical to tag
 `reg1-snapshot-2026-08-16` (commit `3f5be87`); attachments 8–10 postdate that
-tag and are extracted from tag `reg1-filing-2026-09`.
+tag and are extracted from tag `reg1-filing-2026-09b`.
+
+**Ratification of the read-out rule.** The attached read-out rule carries the
+drafting header under which it was written, and marks four constants as
+PROPOSED: the moved-cell criterion (BH-adjusted p < 0.05 and net TVD ≥ 0.10),
+the sensitivity criterion (≥ 3 cells moved spanning ≥ 2 distinct items), the
+stability criterion (95% CI upper bound below the materiality threshold over
+≥ 15 items), and the decoding-instability threshold (median φ ≥ 0.50). Those
+are the values stated in § Inference criteria above. The attachment is filed
+unaltered so that it remains byte-identical to the snapshot; the act of filing
+this registration ratifies the PROPOSED values as the registered values.
 
 **Known limitations, registered rather than discovered:**
 
@@ -386,9 +396,11 @@ tag and are extracted from tag `reg1-filing-2026-09`.
    separately, the image can carry post-decision price action under the
    engine's base entry point; the design condition in § Design plan closes
    this at the interception point, and results from this arm are valid only
-   under that condition. Whether the upstream published experiments used the
-   affected entry point is not established by source reading alone and is not
-   claimed here.
+   under that condition. The condition was reported publicly upstream on
+   2025-04-14 (FinAgent issue #2) without maintainer response; this study's
+   audit independently confirms that report. Whether the upstream published
+   experiments used the affected entry point is not established by source
+   reading alone and is not claimed here.
 4. **Fabricated-fixture pilot** informed the analysis rules (see Existing data).
 5. **Single backbone model version** per run matrix; results do not generalize
    across backbones.

@@ -1,5 +1,17 @@
 # Session handoff — implement the three scoring rules (gaps list item 2)
 
+> **What this file is.** A work order written 2026-08-09 (epoch P→R in the
+> worklog; imported with the arm the same day), in the pre-monorepo
+> `finperturb-finmem` repository, addressed to the Claude session that
+> implemented the three scoring rules (README, *AI provenance*). It is kept
+> as provenance — the worklog's T6 entry cites it, and Registration 1's
+> *Existing data* section discloses the pilot→rules order it records — with
+> one change: the host-machine path has been removed from the two docker
+> commands. Everything else is as written. Repository paths are as they were
+> then; in the monorepo `harness/`, `data/`, `agents/` and `.env` live under
+> `arms/finmem/`, and `scoring/` is at the repo root. "The lead" and "the
+> analyst" below are both the author; "the implementer" is the addressee.
+
 Scope: **item 2 only.** Items 1 and 3–6 of the gaps list are out of scope; do not start them.
 Item 2 is unblocked because it needs no fixtures, no `PARAPHRASE_API_KEY`, and no second engine.
 
@@ -21,19 +33,19 @@ engine. They exist so that two engines' numbers are comparable.
 
 ## Where things are
 
-Host path: `C:\Users\brett\finperturb-finmem` (Windows). Everything executes in Docker.
+Host: the `finperturb-finmem` repository root, mounted at `/work` (`$(pwd)` below). Everything executes in Docker.
 
 ```bash
 # scoring / harness scripts (harness venv, no FinMem import)
-docker run --rm --env-file C:\Users\brett\finperturb-finmem\.env -e FP_REQUIRE_KEYS=0 \
-  -v C:\Users\brett\finperturb-finmem:/work -w /work finperturb-finmem:dev \
+docker run --rm --env-file .env -e FP_REQUIRE_KEYS=0 \
+  -v "$(pwd):/work" -w /work finperturb-finmem:dev \
   python scoring/score_pilot.py --help
 ```
 
 ```bash
 # anything importing FinMem's `puppy` package needs its own venv and cwd
-docker run --rm --env-file C:\Users\brett\finperturb-finmem\.env -e FP_REQUIRE_KEYS=0 \
-  -v C:\Users\brett\finperturb-finmem:/work -v finperturb-finmem_agent-venvs:/opt/venvs \
+docker run --rm --env-file .env -e FP_REQUIRE_KEYS=0 \
+  -v "$(pwd):/work" -v finperturb-finmem_agent-venvs:/opt/venvs \
   -w /work/agents/finmem finperturb-finmem:dev poetry run python /work/harness/wrapper.py --help
 ```
 
