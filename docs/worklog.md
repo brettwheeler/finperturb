@@ -214,6 +214,23 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   pending the lead. Epoch post-R, pre-filing, 2026-09-15. Evidence: anchored
   (this commit; every line cited is verifiable at the pin).
 
+- **Free analyses after the filing tag, all exploratory.** (1) N3 distractor
+  incorporation, `scripts/analyze_n3_incorporation.py` →
+  `docs/n3-incorporation-2026-09-15.md`: over the 125 pilot N3 rows the
+  appended clause is named in 0 rationales (false-positive control 0/480),
+  while the filler memory rows are named in up to 419/670; read as positional
+  absorption, stated as a hypothesis. (2) The four pilot logs re-scored under
+  the current SHA, `docs/rescoring-2026-09-15/`; frozen rules unchanged, 25
+  scoring tests pass; the reports now carry the scoring SHA, TVD, the 10,000-
+  draw null and the BH/Holm family. (3) Candidate scan extended on the
+  mechanical sub-question only, `docs/candidate-scan-material-2026-09-15.md`:
+  CryptoTrade, FinRobot, StockAgent, QuantHarness read at recorded commits;
+  every engine with a news channel independently re-derives or receives in
+  parallel the figures a material class would alter; a counterexample was
+  sought per engine and none found; one new sub-type (parallel delivery)
+  named. Epoch post-filing-tag, 2026-09-15. Evidence: scouting-grade for the
+  scan (recorded commits, not pins); anchored for (1) and (2).
+
 ### T8 — Monorepo
 
 - **Conversion: one repo, one arm per engine; scoring at the root.** The former
