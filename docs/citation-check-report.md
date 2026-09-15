@@ -1,9 +1,9 @@
 # Citation check report
 
-- Repository SHA: `a43b8a2ecfce7d5028a59b00aa34da7a37346823`
-- Run (UTC): 2026-09-15 11:40:14Z
+- Repository SHA: `456ae771b3df9121d4bbfac0e63fb196414288f2`
+- Run (UTC): 2026-09-15 13:19:33Z
 - SHA-256 `docs/applicability-matrix.json` (committed bytes at that SHA): `d19bd22b30f25b4d0918daff0ae049c73389e41fd4bf742fd491a928d9b73afd`
-- SHA-256 `docs/applicability-matrix-material.json` (committed bytes at that SHA): `8a1235bcdc3b4d0e14ce0ae5a78c63e7ee8188a0efe06a1abb2c25628a0ef279`
+- SHA-256 `docs/applicability-matrix-material.json` (committed bytes at that SHA): `a6f33072c433332a01fe8926a06810cecee7e9a7f78c100d3452cf85470ad9b9`
 
 Every cited file is read at the recorded pin with `git show <pin>:<path>`; the working tree is never read.
 
@@ -267,10 +267,11 @@ Every cited file is read at the recorded pin with `git show <pin>:<path>`; the w
 | cross-cutting | harness_prerequisites | - | `harness/build_corpus.py:254-273` | ok | def check_numbers_preserved(base_text: str, variant: Dict[str, Any]) -> None: |
 | cross-cutting | harness_prerequisites | - | `puppy/agent.py:208-209` | ok | for cur_id, cur_memory in zip(cur_short_memory_id, cur_short_queried): |
 
-**Summary:** 240 citations — ok 234, wide 5, external 1. Result: PASS.
+**Summary:** 241 citations — ok 234, wide 5, external 2. Result: PASS.
 
 ## External references (not verifiable by this script)
 
 | matrix | engine | class | reference |
 |---|---|---|---|
 | docs/applicability-matrix.json | tradingagents | N2 | #814 |
+| docs/applicability-matrix-material.json | finagent | - | #2 |
