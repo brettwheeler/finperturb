@@ -203,6 +203,17 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   post-R, pre-filing, 2026-09-15. Evidence: anchored (this commit and the
   filing tag).
 
+- **FinAgent K-line lookahead: disclosure record drafted, not sent.**
+  `docs/finagent-lookahead-disclosure.md`. Source reading establishes that
+  three upstream entry points (`tools/main.py`, `tools/main_mi_w_decision.py`,
+  `tools/main_strategy.py`) call the K-line plotter without passing `mode`, so
+  the validation-phase chart spans `look_forward_days = 14` sessions past the
+  decision date, and that the upstream README's run instructions name two of
+  them; whether the paper's reported figures came from those entry points is
+  not recoverable from source and is not claimed. Recipient and send date
+  pending the lead. Epoch post-R, pre-filing, 2026-09-15. Evidence: anchored
+  (this commit; every line cited is verifiable at the pin).
+
 ### T8 — Monorepo
 
 - **Conversion: one repo, one arm per engine; scoring at the root.** The former
