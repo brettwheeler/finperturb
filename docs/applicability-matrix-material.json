@@ -1,0 +1,224 @@
+{
+  "_comment": "Machine-readable output of the material-class applicability audit (M1-M5). The reasoning lives in docs/applicability-audit-material.md; this file is what a harness or report reads so a drop is enforced mechanically rather than remembered. It extends, and does not edit, docs/applicability-matrix.json (audit_scope null), which is attached to Registration 1. Enforcement for a given arm is its harness/corpus_config.json excluded_klasses; this is the study-level record those must agree with. Citations are paths relative to the pinned clone (arms/<arm>/agents/<engine>/) unless prefixed harness/, which is relative to the arm.",
+  "audit_version": "1",
+  "audit_scope": "material",
+  "extends": "docs/applicability-matrix.json",
+  "audited_utc": "2026-09-15",
+  "method": "source reading only; no engine was run",
+  "verdicts": {
+    "run": "reaches the decision prompt intact and the predicted direction is well defined",
+    "run_attenuated": "reaches the decision through a lossy stage; valid, but effect size is not comparable across engines without saying so; not a drop",
+    "dropped": "contradicted or erased downstream; measuring it would measure the contradiction",
+    "no_target": "the construct the class perturbs does not exist in this engine, so there is nothing to manipulate; distinct from dropped because nothing is contradicted, nothing is there",
+    "undetermined": "the source read does not settle it; the reason must name the specific file, artifact or upstream question that would"
+  },
+  "classes": {
+    "M1": "surprise-sign flip: actual moved across consensus, consensus held, so a beat becomes a miss",
+    "M2": "internals flip: headline figure held, a contradicting internal component swapped",
+    "M3": "sentiment-lexicon inversion: directional language systematically inverted, figures adjusted to match",
+    "M4": "failure-condition activation: inject the circumstance the agent's own strategy documentation names as invalidating; the agent must veto and cite the named field",
+    "M5": "magnitude scaling: a reported move rescaled across a qualitative threshold"
+  },
+  "engines": {
+    "finmem": {
+      "pin": "be814aa",
+      "arm": "arms/finmem",
+      "interception_point": "memory rows (current harness); unchanged from the null audit",
+      "lossy_stages_before_decision": 0,
+      "lossy_stages_verified_for_material": "0: retrieved short rows are joined verbatim with only .strip(); truncation exists only for tgi backbones; the guardrails reask re-sends the same input. puppy/reflection.py:322-328, puppy/agent.py:33-34, puppy/agent.py:193, puppy/reflection.py:424-426",
+      "competing_channels": [
+        "momentum sentence: the SIGN of the 3-day cumulative return rendered as one English line, omitted when zero. puppy/reflection.py:227-243, puppy/reflection.py:347-349, puppy/portfolio.py:88-110",
+        "up to top_k=3 retrieved short rows out of the fixture plus four neutral training rows, ranked by similarity to the persona string (not the news) merged with a random importance draw; the fixture can be omitted from the prompt in a given rep. puppy/agent.py:188-192, puppy/agent.py:189, puppy/memorydb.py:138-218, puppy/memorydb.py:96-98, puppy/memory_functions/importance_score.py:31-35, harness/build_corpus.py:58, harness/corpus_config.json",
+        "placeholder strings for empty mid/long/reflection layers; static sentiment-score paragraph; ticker-and-date prefix. puppy/reflection.py:162-188, puppy/prompts.py:17-24, puppy/prompts.py:16",
+        "NOT in the prompt: the persona string (used only as retrieval query), the raw price, filings (omitted by the harness). puppy/agent.py:404-419, puppy/agent.py:587-590, harness/build_corpus.py:97-98"
+      ],
+      "news_channel_share": "effectively the whole of the variable decision input, by construction of the frozen context; conditional on the fixture row being retrieved",
+      "classes": {
+        "M1": {
+          "verdict": "run",
+          "reason": "Fixture text is an arbitrary string written into the decision corpus and joined verbatim into the prompt. No independently fetched figure exists: no fundamentals fetch, filings omitted by the harness, price enters as a sign only. The persona line recalling past revenue misses is undated and is not in the decision prompt.",
+          "citations": ["harness/build_corpus.py:195-200", "harness/build_corpus.py:72-100", "puppy/reflection.py:325", "puppy/portfolio.py:88-110", "harness/build_corpus.py:97-98", "config/tsla_gpt_config.toml:22", "puppy/agent.py:404-419"],
+          "direction_well_formed": "yes, ordinal: beat->miss predicts a shift toward sell on a three-way output that discourages hold; a hold->hold non-change is admissible. puppy/prompts.py:46-47, puppy/reflection.py:108-112"
+        },
+        "M2": {
+          "verdict": "run",
+          "reason": "Same verbatim path. The class's requirement that the decision path see more than the headline is met trivially: the news is one string read by one LLM call, with no headline/body split and no summarizer.",
+          "citations": ["puppy/reflection.py:322-328", "puppy/prompts.py:41-53"],
+          "direction_well_formed": "weak: toward less bullish is predicted, but a mixed item is where hold before and after is the rational reading, so a null is compatible with correct reading of both texts"
+        },
+        "M3": {
+          "verdict": "run",
+          "reason": "Same verbatim path. Scoped: the momentum sentence independently asserts the SIGN of the instrument's own 3-day price path in non-flat contexts, so inverted language about that path is contradicted (N2 shape); in the flat context the block is omitted. Fixture rule: M3 language must describe events, results or guidance, never the instrument's recent price direction.",
+          "citations": ["puppy/reflection.py:227-243", "puppy/portfolio.py:92-110", "puppy/reflection.py:347", "harness/corpus_config.json"],
+          "direction_well_formed": "yes: the inversion predicts the opposite side"
+        },
+        "M4": {
+          "verdict": "no_target",
+          "reason": "No documented strategy logic with invalidation conditions. The test prompt has no strategy rules; its only condition-keyed instruction is a risk-appetite line keyed to the momentum sign, computed from prices. The persona is not in the decision prompt. The output schema has no veto and no field to cite. The reflection layer stores agent-authored summary_reason prose, not logic with conditions.",
+          "citations": ["puppy/prompts.py:41-53", "puppy/prompts.py:44", "config/tsla_gpt_config.toml:12-23", "puppy/agent.py:189", "puppy/agent.py:404-419", "puppy/reflection.py:107-136", "puppy/agent.py:421-426"],
+          "direction_well_formed": "not applicable"
+        },
+        "M5": {
+          "verdict": "run",
+          "reason": "Same verbatim path. The momentum sentence carries sign and no magnitude, so a sign-preserving rescale is never contradicted even when the figure is a price move.",
+          "citations": ["puppy/reflection.py:325", "puppy/portfolio.py:94-110", "puppy/reflection.py:227-243"],
+          "direction_well_formed": "yes, monotone; on a three-way output both magnitudes may map to the same action, so a non-change is admissible; the threshold straddled is the fixture designer's stated claim per item"
+        }
+      },
+      "notes": [
+        "HARNESS PREREQUISITE: check_numbers_preserved rejects any variant that drops a base number, which is every M1, M2 and M5 variant and every figure-adjusted M3 variant. It must become class-aware before a material corpus can be built. harness/build_corpus.py:254-273",
+        "HARNESS PREREQUISITE: read the agent's 'Top-k Short' log lines and flag any rep whose prompt omitted the fixture row. puppy/agent.py:208-209",
+        "Drops are enforced as before: excluded_klasses with a mandatory reason. harness/build_corpus.py:343-359",
+        "The static sentiment-score paragraph references scores the harness never supplies (the upstream pipeline appends them); constant across cells, so a note and not a contradiction. puppy/prompts.py:17-24, data-pipeline/05-get_sentiment_by_ticker.py:86-88",
+        "Malformed output defaults to hold. puppy/reflection.py:447",
+        "Clone state at audit: HEAD be814aa; one untracked directory data-pipeline/Fake-Sample-Data/, no tracked-source modification."
+      ]
+    },
+    "tradingagents": {
+      "pin": "a33fd4c",
+      "arm": "arms/tradingagents",
+      "interception_point": "register a fixture vendor in VENDOR_METHODS; CORRECTED: insufficient alone at this pin, because StockTwits, Reddit, the verified market snapshot, the identity lookup and the memory log bypass the registry and need their own freeze",
+      "lossy_stages_before_decision": 2,
+      "lossy_stages_verified_for_material": "2 at the registered coarse grain (report; debate complex). Fine grain: the decision-maker (portfolio manager) never sees a report; shortest path is report -> risk-debator argument -> portfolio manager, three LLM rewrites. tradingagents/agents/managers/portfolio_manager.py:56-61, tradingagents/agents/risk_mgmt/aggressive_debator.py:30-35, tradingagents/agents/managers/research_manager.py:43-44, tradingagents/agents/trader/trader.py:43-48",
+      "competing_channels": [
+        "ARCHITECTURE CORRECTION: four analyst reports by default, not five; the 'social' key builds the sentiment analyst. tradingagents/graph/setup.py:62, tradingagents/graph/analyst_execution.py:28-38, tradingagents/agents/analysts/social_media_analyst.py:1-9",
+        "The fixture news reaches TWO of the four: the news analyst by tool call, and the sentiment analyst by direct pre-fetch of the same tool function over a fixed seven-day window. tradingagents/agents/analysts/news_analyst.py:20-28, tradingagents/agents/utils/news_data_tools.py:24, tradingagents/agents/analysts/sentiment_analyst.py:70, tradingagents/agents/analysts/sentiment_analyst.py:47-48, tradingagents/agents/analysts/sentiment_analyst.py:136-146",
+        "Market report: OHLCV, indicators, and a deterministic verified snapshot. tradingagents/agents/utils/core_stock_tools.py:24, tradingagents/dataflows/y_finance.py:18-70, tradingagents/agents/utils/market_data_validation_tools.py:5, tradingagents/dataflows/market_data_validator.py:1-8",
+        "Fundamentals report: live overview (EPS TTM, Forward EPS, Revenue TTM, unfiltered by date) and quarterly statements filtered to fiscal-period-end <= trade date. tradingagents/agents/analysts/fundamentals_analyst.py:18-28, tradingagents/dataflows/y_finance.py:296-297, tradingagents/dataflows/y_finance.py:304, tradingagents/dataflows/y_finance.py:276, tradingagents/dataflows/y_finance.py:421-426, tradingagents/dataflows/stockstats_utils.py:224-235",
+        "Sentiment report's two social blocks, fetched live over HTTP outside the vendor registry; degrade to an unavailable placeholder. tradingagents/agents/analysts/sentiment_analyst.py:43-44, tradingagents/agents/analysts/sentiment_analyst.py:71-72, tradingagents/dataflows/stocktwits.py:41, tradingagents/dataflows/stocktwits.py:58, tradingagents/dataflows/reddit.py:191",
+        "Memory-log past_context (prior decisions and reflections) injected into the portfolio manager's prompt; pending entries trigger a return fetch and a reflection LLM call at run start. tradingagents/graph/trading_graph.py:423, tradingagents/agents/utils/memory.py:70-95, tradingagents/agents/managers/portfolio_manager.py:36-41, tradingagents/graph/trading_graph.py:296-334, tradingagents/default_config.py:75",
+        "Resolved instrument identity in every prompt (the N2 mechanism). tradingagents/agents/utils/agent_utils.py:122-169, tradingagents/agents/utils/agent_utils.py:78-99"
+      ],
+      "news_channel_share": "2 of 4 analyst reports, one of which mixes the news with two social feeds; each report then competes inside a debate whose final arbiter never reads a report directly",
+      "classes": {
+        "M1": {
+          "verdict": "dropped",
+          "reason": "Contradicted by an independently fetched figure. The default-selected fundamentals analyst is instructed to call get_fundamentals and get_income_statement; the default vendor returns live EPS/revenue and the quarterly income statement filtered to fiscal-period-end <= trade date. A fiscal period ends before its results are released, so for any earnings-release fixture the reported quarter's actual is present on the fixture date; held at the base state as the registered design holds every unperturbed channel, it asserts the actual the variant moved. The report is handed verbatim to the bull, the bear and all three risk debators. N2's mechanism with a number in place of a name. Fixturing the fundamentals vendor with variant-consistent statements would be a joint text-and-data perturbation (a different class); deselecting the fundamentals analyst would be a different engine configuration.",
+          "citations": ["tradingagents/graph/setup.py:62", "tradingagents/agents/analysts/fundamentals_analyst.py:18-28", "tradingagents/default_config.py:136", "tradingagents/dataflows/y_finance.py:296-297", "tradingagents/dataflows/y_finance.py:304", "tradingagents/dataflows/y_finance.py:276", "tradingagents/dataflows/y_finance.py:421-426", "tradingagents/dataflows/y_finance.py:432", "tradingagents/dataflows/stockstats_utils.py:224-235", "tradingagents/dataflows/alpha_vantage_fundamentals.py:30-63", "tradingagents/agents/researchers/bull_researcher.py:41", "tradingagents/agents/risk_mgmt/aggressive_debator.py:34"],
+          "direction_well_formed": "moot; recorded for completeness as an ordinal shift toward Sell on the five-tier scale"
+        },
+        "M2": {
+          "verdict": "dropped",
+          "reason": "Same channel, more decisively: the quarterly income statement CSV is exactly the multi-component detail M2 perturbs, fetched by ticker independently of the news and read by five debate participants. The engine's fundamentals path sees the whole statement without the news, which is why the flipped component is contradicted rather than weighed.",
+          "citations": ["tradingagents/dataflows/y_finance.py:421-438", "tradingagents/dataflows/stockstats_utils.py:224-235", "tradingagents/agents/researchers/bear_researcher.py:43", "tradingagents/agents/risk_mgmt/conservative_debator.py:34", "tradingagents/agents/risk_mgmt/neutral_debator.py:34"],
+          "direction_well_formed": "moot"
+        },
+        "M3": {
+          "verdict": "run_attenuated",
+          "reason": "Reaches two analysts; the sentiment analyst's structured band and 0-10 score are built to register exactly this change; then the debate at fine-grained depth. Scoped: (a) language about the instrument's price path is contradicted by the market report's OHLCV and verified snapshot - dropped sub-case; (b) language about reported figures inherits M1's drop; (c) language about guidance, events and management commentary has no independent source (Forward EPS is a live consensus correlate, not an assertion) and runs. Runnable on (c) only.",
+          "citations": ["tradingagents/agents/analysts/sentiment_analyst.py:70", "tradingagents/agents/schemas.py:258-303", "tradingagents/agents/analysts/news_analyst.py:59-67", "tradingagents/dataflows/y_finance.py:54-70", "tradingagents/dataflows/market_data_validator.py:1-8", "tradingagents/dataflows/y_finance.py:297"],
+          "direction_well_formed": "yes, ordinal toward the inverted side on the five-tier scale; a Hold->Hold non-change is admissible"
+        },
+        "M4": {
+          "verdict": "no_target",
+          "reason": "No prompt in the graph documents strategy logic with invalidation conditions: the market analyst's indicator tips are price-indicator guidance, researchers/debators/managers carry role instructions only, the structured schemas carry per-run entry/stop/target values that are generated rather than documented, and the rating enum has no veto and nothing to cite. The nearest construct, memory-log lessons injected into the portfolio manager's prompt, is agent-authored or harness-seedable prose, not the agent's own documentation; seeding it would be a derived class with its own interception point (the log file).",
+          "citations": ["tradingagents/agents/analysts/market_analyst.py:25-53", "tradingagents/agents/schemas.py:139-147", "tradingagents/agents/schemas.py:216-219", "tradingagents/agents/schemas.py:44-51", "tradingagents/graph/reflection.py:20-29", "tradingagents/agents/managers/portfolio_manager.py:36-41", "tradingagents/agents/schemas.py:211-213", "tradingagents/default_config.py:75"],
+          "direction_well_formed": "not applicable"
+        },
+        "M5": {
+          "verdict": "run_attenuated",
+          "reason": "Scoped like M3: a rescaled price move is contradicted by the market report (dropped sub-case); a rescaled reported figure inherits M1's drop; a rescaled magnitude the engine has no source for (guidance change, contract value, unit or delivery figure absent from the statements) runs, attenuated by the same stages.",
+          "citations": ["tradingagents/dataflows/y_finance.py:54-70", "tradingagents/dataflows/market_data_validator.py:1-8", "tradingagents/dataflows/y_finance.py:421-426", "tradingagents/agents/analysts/news_analyst.py:59-67", "tradingagents/agents/analysts/sentiment_analyst.py:70"],
+          "direction_well_formed": "yes, monotone on the ordinal scale; non-change admissible"
+        }
+      },
+      "notes": [
+        "INTERCEPTION CORRECTION: five inputs bypass VENDOR_METHODS and must be frozen or stubbed separately before any class is run - StockTwits and Reddit (tradingagents/agents/analysts/sentiment_analyst.py:43-44, tradingagents/agents/analysts/sentiment_analyst.py:71-72, tradingagents/dataflows/stocktwits.py:41, tradingagents/dataflows/reddit.py:191), the verified market snapshot (tradingagents/agents/utils/market_data_validation_tools.py:5, tradingagents/dataflows/market_data_validator.py:35, tradingagents/dataflows/stockstats_utils.py:148-175), instrument identity (tradingagents/agents/utils/agent_utils.py:78-99), and the memory log (tradingagents/default_config.py:75, tradingagents/graph/trading_graph.py:296-334).",
+        "ACTION ALPHABET: the terminal output is five-tier (Buy/Overweight/Hold/Underweight/Sell) and the registered TVD scale was worked on three actions; the arm must register a 5->3 mapping or a five-category TVD before any cell is scored. tradingagents/agents/schemas.py:44-51, tradingagents/agents/utils/rating.py:28-48",
+        "Malformed decision parses to Hold by default, a hold-biased failure mode. tradingagents/agents/utils/rating.py:48",
+        "Debate depth defaults: one investment round, one risk round. tradingagents/default_config.py:110-111"
+      ]
+    },
+    "finagent": {
+      "pin": "17248a0",
+      "arm": "arms/finagent",
+      "interception_point": "substitute the processed data the download/process pipeline produces; CORRECTED obligation: the substituted price frame must not extend past the decision date, or the K-line image carries post-decision prices under the base entry point",
+      "lossy_stages_before_decision": 1,
+      "lossy_stages_verified_for_material": "1 on the direct path: fixture title/text -> latest market-intelligence summary (<=40 tokens per item, <=300-token summary with an explicit sentiment label) -> decision. 2 on the indirect paths through the low-level and high-level reflections, which consume the same summary. finagent/prompt/trading/latest_market_intelligence_summary.py:72-80, res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:8-9, res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:19, res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:21, res/prompts/template/valid/trading/decision.html:21, res/prompts/template/valid/trading/low_level_reflection.html:16-21, res/prompts/template/valid/trading/high_level_reflection.html:14-21",
+      "preconditions": [
+        "NO FUTURE PRICE ROWS: the state's price frame spans look_back_days before to look_forward_days (14) after the decision date; plot_kline truncates at today only when mode != 'train'; tools/main.py calls it without mode, so under the base config's entry point the valid-mode K-line image carries up to fourteen post-decision days into the low-level reflection and the decision. The three main_mi_w_* entry points pass mode. The registered interception point closes this without touching the engine: the substituted price frame ends at the decision date and days_future clamps to the last row. Every FinAgent verdict below is stated under this precondition; without it no class, null or material, measures news sensitivity. finagent/environment/trading.py:121-125, configs/exp/trading/TSLA.py:25-26, finagent/plots/kline.py:32-33, tools/main.py:232, finagent/plots/interface.py:31, finagent/plots/interface.py:59, tools/main_mi_w_low_w_high_w_tool_w_decision.py:231, finagent/environment/trading.py:122",
+        "REGISTER THE CONFIGURATION: six published configs pair a decision template with an entry point; the base config uses the trading template; the tool-augmented config points at the non-tool template; the only config loading a strategy block has no market-intelligence channel. The template choice changes competing channels and decision rules, not the verdicts below. configs/exp/trading/TSLA.py:36-40, configs/exp/trading_mi_w_low_w_high_w_tool_w_decision/TSLA.py:40, configs/exp/trading_only_strategy_with_record/TSLA_only_strategy.py:40, res/prompts/template/valid/trading_mi-w-low-w-high-w-tool-w-decision/decision.html:50-52"
+      ],
+      "competing_channels": [
+        "Company profile in the task description (the N2 mechanism). res/prompts/module/trading/decision_task_description_trading.html:2, res/prompts/asset_infos/exp_stocks.json",
+        "Today's OHLC and adjusted close placed beside the news in the summarizer prompt. finagent/prompt/trading/latest_market_intelligence_summary.py:57-63",
+        "Low-level reflection from a K-line image with MA and Bollinger overlays plus NUMERIC 1/7/14-day past returns as percentages. res/prompts/module/trading/low_level_reflection_kline_chart_trading.html:2-15, finagent/plots/interface.py:31-64, finagent/prompt/trading/low_level_reflection.py:60-68, res/prompts/module/trading/low_level_reflection_price_change_description_trading.html:3-5",
+        "High-level reflection from a trading-chart image and the last 14 actions. res/prompts/module/trading/high_level_reflection_trading_chart_trading.html:2-13",
+        "State line: adjusted close, position, cash, profit, yesterday's return. res/prompts/module/trading/decision_state_description_trading.html:2, finagent/prompt/trading/decision.py:42-52",
+        "Memory rows retrieved by the summarizer's own generated query, carrying past news with their OHLC. finagent/prompt/helper.py:248-321, finagent/prompt/trading/latest_market_intelligence_summary.py:167-176",
+        "Trader persona. res/prompts/trader/*.txt, tools/main.py:371",
+        "Image channel confirmed at source as before. finagent/provider/provider.py:270-284, finagent/provider/provider.py:411-444, finagent/prompt/custom.py:81-96",
+        "ABSENT: no fundamentals fetch of any kind; the dataset holds prices, news, guidance, sentiment, economics. finagent/data/dataset.py:53, finagent/environment/trading.py:31-35"
+      ],
+      "news_channel_share": "one summarized text block among price (row, numeric returns, image), reflections, state and profile; the unperturbed price channels reach the backbone less attenuated than the news, as registered in readout-rule section 6.7",
+      "classes": {
+        "M1": {
+          "verdict": "run_attenuated",
+          "reason": "Under the no-future-rows precondition. Expressible as free strings; survives as the summarizer chooses to carry it, and the label is instructed to prefer a clear POSITIVE or NEGATIVE over NEUTRAL, so a beat-to-miss flip is the kind of change the label registers, though the figures may not survive forty tokens. No independent assertion of the reported or expected figure exists (no fundamentals). Today's OHLC beside the news and the chart up to today are correlates of the true event, recorded as competing channels rather than a drop. Severe attenuation.",
+          "citations": ["finagent/prompt/trading/latest_market_intelligence_summary.py:72-80", "res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:8", "res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:9", "res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:21", "finagent/prompt/trading/latest_market_intelligence_summary.py:57-63", "finagent/data/dataset.py:53", "res/prompts/template/valid/trading/decision.html:21"],
+          "direction_well_formed": "yes, toward SELL on a three-way output whose rules push away from HOLD; non-change admissible. res/prompts/module/trading/decision_prompt_trading.html:8-9"
+        },
+        "M2": {
+          "verdict": "run_attenuated",
+          "reason": "Under the precondition. The summarizer sees title and text in full; the decision sees at most forty tokens per item, so the internals survive only if kept. A mixed item is the case most likely labelled NEUTRAL, at which point decision rule 1 tells the agent to pay the summary less attention and the price channels decide. Severe attenuation; the predicted direction is toward whatever the unperturbed price context says, which is not a prediction about the news.",
+          "citations": ["res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:9", "res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:19", "res/prompts/module/trading/decision_prompt_trading.html:5", "res/prompts/template/valid/trading/decision.html:21"],
+          "direction_well_formed": "no single direction: a null is compatible with correct reading; record magnitude only"
+        },
+        "M3": {
+          "verdict": "run_attenuated",
+          "reason": "Under the precondition. Scoped: directional language about the instrument's own price is contradicted three ways - the OHLC row in the summarizer prompt, the K-line image, and the numeric past-return percentages in the price-change description - dropped sub-case. Language about events, results and guidance has no independent source on this engine (no fundamentals), so the reported-figure sub-case that M1 drops on TradingAgents runs here, attenuated by the same summarizer.",
+          "citations": ["finagent/prompt/trading/latest_market_intelligence_summary.py:57-63", "res/prompts/module/trading/low_level_reflection_kline_chart_trading.html:2-15", "finagent/prompt/trading/low_level_reflection.py:63-68", "res/prompts/module/trading/low_level_reflection_price_change_description_trading.html:3-5", "finagent/data/dataset.py:53"],
+          "direction_well_formed": "yes, toward the inverted side; non-change admissible"
+        },
+        "M4": {
+          "verdict": "no_target",
+          "reason": "The engine documents strategy logic with invalidation conditions (four strategies, each with the regime in which it is less suitable or less effective), but in no published configuration does that documentation share a prompt with the news: the only config loading it has no market-intelligence channel, and every news-bearing config omits the strategy block. For the perturbable text there is nothing to activate. For the record, under a --cfg-options override selecting the unreferenced tool template, every named invalidation condition is a price-regime property (range-bound, choppy, trending, volatile) the engine observes for itself from the K-line, the past-return percentages and strategy signals computed from the price series, so a news sentence asserting the regime is redundant or contradicted, and the output has no veto and no field to cite: that branch is dropped, not run. Not testable via the news channel under any configuration.",
+          "citations": ["res/prompts/module/trading/decision_strategy_trading.html:3", "res/prompts/module/trading/decision_strategy_trading.html:5", "res/prompts/module/trading/decision_strategy_trading.html:7", "res/prompts/module/trading/decision_strategy_trading.html:9", "res/prompts/module/trading/decision_strategy_trading_with_record.html:6-17", "finagent/tools/strategy_agents.py:86", "finagent/tools/strategy_agents.py:118", "finagent/tools/strategy_agents.py:158", "finagent/tools/strategy_agents.py:206", "configs/exp/trading_only_strategy_with_record/TSLA_only_strategy.py:40", "res/prompts/template/valid/only_strategy_trading/decision_with_record.html:11-25", "configs/exp/trading/TSLA.py:40", "configs/exp/trading_mi_w_low_w_high_w_tool_w_decision/TSLA.py:40", "tools/main.py:32-41", "finagent/prompt/helper.py:155-188", "res/prompts/module/trading/decision_output_format_trading.html:5"],
+          "direction_well_formed": "not applicable"
+        },
+        "M5": {
+          "verdict": "run_attenuated",
+          "reason": "Under the precondition. Scoped: a rescaled price move is hard-contradicted by the numeric past-return percentages (dropped sub-case); a rescaled event or reported-figure magnitude has no independent source and runs, attenuated.",
+          "citations": ["finagent/prompt/trading/low_level_reflection.py:63-68", "res/prompts/module/trading/low_level_reflection_price_change_description_trading.html:3-5", "finagent/data/dataset.py:53", "res/prompts/module/trading/market_intelligence_latest_summary_prompt_trading.html:21"],
+          "direction_well_formed": "yes, monotone; non-change admissible"
+        }
+      },
+      "notes": [
+        "EMITTED VERSUS EXECUTED ACTION: the environment coerces an infeasible action to HOLD (SELL with no position, BUY with no cash) and the run loop overwrites the recorded action with the environment's, while the LLM's emitted action is what the decision returned; the tool-template rules also forbid the infeasible action in the prompt. The arm must register which is scored, and check that the frozen context's position and cash leave both sides of every predicted shift feasible. finagent/environment/trading.py:199-229, tools/main.py:208-209, tools/main.py:404, tools/main.py:407, res/prompts/template/valid/trading_mi-w-low-w-high-w-tool-w-decision/decision.html:74",
+        "Retrieval of past market intelligence uses the summarizer's own generated query, so the perturbation can change which past rows appear; the agent's behaviour, as with FinMem. finagent/prompt/helper.py:248-321",
+        "More than twenty news rows on a day are randomly subsampled to twenty; irrelevant for a one-item fixture but a nondeterminism to keep out of the corpus. finagent/prompt/trading/latest_market_intelligence_summary.py:52-53",
+        "Identification of this repository as the arXiv 2402.18485 implementation rests on source inspection; carried over from the null audit. Lead to confirm."
+      ]
+    }
+  },
+  "cross_cutting": {
+    "independent_figures_drop_reported_financial_classes": {
+      "finding": "A material class is testable on an engine only where the manipulated figure has no independent source inside the engine, and the set of independently sourced figures grows with the engine's tool breadth: FinMem sources only the sign of a 3-day return; FinAgent sources prices as levels, numeric percentage moves and an image; TradingAgents sources prices, indicators and full financial statements. M1 and M2 therefore run on FinMem, run attenuated on FinAgent, and are dropped on TradingAgents. This is the N2 mechanism generalized from identity to figures: an agent that fetches a figure by ticker anchors it outside the text, and a text perturbation of that figure measures the anchoring. The ordering of drops is the attenuation ordering, because both are data-fetching breadth.",
+      "consequence": "Report the reported-financial classes as unavailable against statement-fetching agents, as a finding about the class of system in the same shape as readout-rule section 7 reports N2, never as a per-engine omission."
+    },
+    "price_path_never_the_perturbed_content": {
+      "finding": "Every engine injects independently computed price context in English or numbers (FinMem puppy/reflection.py:227-243; TradingAgents the market report; FinAgent finagent/prompt/trading/low_level_reflection.py:60-68 and the chart). An M3 or M5 fixture whose perturbed content is the instrument's own price path is contradicted on all three.",
+      "consequence": "Fixture-construction rule, registered: material variants perturb events, results, guidance and commentary; the price is the frozen context's to state."
+    },
+    "m4_no_target_on_all_three": {
+      "finding": "Only FinAgent documents strategy logic with invalidation conditions, only in a configuration with no news channel, and every condition it names is a price regime the engine observes for itself. FinMem and TradingAgents document no strategy logic; their nearest constructs are agent-authored or harness-seedable prose, not the agent's own documentation.",
+      "consequence": "M4 as defined is dropped from the study for all three engines, stated as a property of the class of system: strategy logic, where it exists in these agents, is keyed to price-regime facts the agent computes rather than reads. A condition-activation test, if wanted, is a memory- or strategy-channel perturbation with its own interception point, definition and audit."
+    },
+    "null_audit_descriptor_corrections": {
+      "finding": "Four descriptors in the filed null audit are wrong or incomplete at the pins and are recorded here rather than edited there: TradingAgents has four analyst reports, not five, and the fixture news reaches two of them (share 2 of 4, one mixed with two social feeds); TradingAgents' fixture-vendor interception does not cover StockTwits, Reddit, the verified snapshot, the identity lookup or the memory log; TradingAgents' fine-grained lossy count is at least three rewrites to a decision-maker who never sees a report; FinAgent's K-line image under the base entry point and the upstream dataset layout includes fourteen post-decision days, which affects N1 and N3 there as much as the material classes.",
+      "consequence": "Registration 2 states the corrected descriptors and the FinAgent no-future-rows precondition; Registration 1's attachments are left as filed."
+    },
+    "direction_diagnostic_inverts_for_material_classes": {
+      "finding": "Readout-rule section 10 reads a consistent direction of shift across items as a fixture-quality alarm because null-class perturbations are directionless by construction. For a material class a consistent direction is the prediction.",
+      "consequence": "The registration states, per material class and engine, the predicted sign from this matrix's direction_well_formed fields; the alarm becomes consistent movement against the predicted sign; a class whose sign is not well formed on an engine (M2 on FinAgent) reports magnitude only, with no alarm and no confirmation."
+    },
+    "ordinal_predictions_and_action_alphabets": {
+      "finding": "FinMem and FinAgent decide on three actions, TradingAgents on five tiers, and FinAgent coerces infeasible actions; every material prediction is a direction of shift on an ordinal scale with a correct non-change admissible on every engine.",
+      "consequence": "Each arm registers its action alphabet and any mapping to the three-action TVD before a material cell is scored, and the FinMem and FinAgent frozen contexts are checked for feasibility of both sides of every predicted shift."
+    },
+    "harness_prerequisites": {
+      "finding": "Three harness obligations this audit creates, none of them engine findings: FinMem's check_numbers_preserved must become class-aware (harness/build_corpus.py:254-273) and the run log's Top-k Short lines must be read to flag reps whose prompt omitted the fixture (puppy/agent.py:208-209); TradingAgents must freeze the five registry-bypassing inputs and register its action alphabet; FinAgent's substituted price frame must end at the decision date, and the arm must register its template, entry point, and emitted-versus-executed action.",
+      "consequence": "Listed so they are not lost between this audit and the fixture freeze; each is a precondition of the corresponding arm's corpus build."
+    }
+  }
+}

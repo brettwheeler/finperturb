@@ -155,6 +155,33 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   confirmatory data. Epoch post-R, 2026-08-09. Anchored (the doc and the
   readout-rule diff in this entry's commit).
 
+- **Applicability audit, material classes M1–M5, all three engines.**
+  `docs/applicability-audit-material.md` and
+  `docs/applicability-matrix-material.json`: fifteen cited class × engine cells
+  under a five-verdict vocabulary (the null audit's three plus `no_target` and
+  `undetermined`). FinMem: M1/M2/M3/M5 run, M4 no target. TradingAgents: M1/M2
+  dropped — the fundamentals analyst fetches the quarterly income statement by
+  ticker, N2's mechanism with a number in place of a name; M3/M5 run attenuated
+  and scoped to content the engine has no independent source for; M4 no target.
+  FinAgent: M1/M2/M3/M5 run attenuated under a no-future-rows precondition, M4
+  no target (strategy documentation exists only in a config with no news
+  channel). No cell undetermined. Four corrections to the filed null audit
+  recorded without editing it: TradingAgents has four analysts, not five, and
+  the news reaches two; five TradingAgents inputs bypass the vendor-registry
+  interception point; its fine-grained lossy count is ≥ 3; FinAgent's K-line
+  image carries fourteen post-decision days under `tools/main.py`
+  (`finagent/plots/kline.py:32-33`), closed by the substituted price frame
+  ending at the decision date. Harness prerequisites: FinMem's
+  `check_numbers_preserved` rejects every material variant and must become
+  class-aware; each arm must register its action alphabet. Source reading only,
+  no engine run, all three clones verified at pin. Epoch post-R and
+  post-Registration 1 (`reg1-snapshot-2026-08-16`), 2026-09-15. Evidence:
+  anchored (the commit landing the two documents; every verdict cites pinned
+  source lines). Undetermined cells: none — the two FinAgent preconditions
+  (price frame ends at the decision date; template and entry point registered)
+  are lead decisions enforceable at the registered interception point, not
+  open verdicts, and are listed for Registration 2.
+
 ### T8 — Monorepo
 
 - **Conversion: one repo, one arm per engine; scoring at the root.** The former
