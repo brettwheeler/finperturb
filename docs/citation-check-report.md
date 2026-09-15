@@ -1,9 +1,9 @@
 # Citation check report
 
-- Repository SHA: `80fd0a183831cf35f26138793e97b40ef385d99c`
-- Run (UTC): 2026-09-15 11:38:47Z
-- SHA-256 `docs/applicability-matrix.json`: `d19bd22b30f25b4d0918daff0ae049c73389e41fd4bf742fd491a928d9b73afd`
-- SHA-256 `docs/applicability-matrix-material.json`: `f73360c588fe11dd917a57f69a7cb8b413ff84ea751f9237b3b3a64e03399866`
+- Repository SHA: `a43b8a2ecfce7d5028a59b00aa34da7a37346823`
+- Run (UTC): 2026-09-15 11:40:14Z
+- SHA-256 `docs/applicability-matrix.json` (committed bytes at that SHA): `d19bd22b30f25b4d0918daff0ae049c73389e41fd4bf742fd491a928d9b73afd`
+- SHA-256 `docs/applicability-matrix-material.json` (committed bytes at that SHA): `8a1235bcdc3b4d0e14ce0ae5a78c63e7ee8188a0efe06a1abb2c25628a0ef279`
 
 Every cited file is read at the recorded pin with `git show <pin>:<path>`; the working tree is never read.
 

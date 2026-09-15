@@ -152,21 +152,22 @@ def walk(matrix: dict):
     return yield_list
 
 
-def sha256_file(path: str) -> str:
-    with open(path, "rb") as fh:
-        return hashlib.sha256(fh.read()).hexdigest()
-
-
 def verify(matrices: list[str], root: str = ROOT, wide_lines: int = WIDE_LINES):
     """Return (rows, header_info, fatal). Raises PinMismatch before reading anything."""
     repo_head = git(root, "rev-parse", "HEAD")
     repo_at_head = Repo(root, repo_head)
     repo_at_head.load()
 
+    # The matrices themselves are read at HEAD too, and hashed as committed bytes,
+    # so the digests in the header match what any clone of this SHA checks out.
     loaded = []
+    digests = []
     for mpath in matrices:
-        with open(os.path.join(root, mpath), encoding="utf-8") as fh:
-            loaded.append((mpath, json.load(fh)))
+        if mpath not in repo_at_head.files:
+            raise FileNotFoundError(f"{mpath} is not committed at {repo_head[:7]}; commit it before verifying")
+        raw = subprocess.check_output(["git", "-C", root, "show", f"{repo_head}:{mpath}"])
+        loaded.append((mpath, json.loads(raw.decode("utf-8"))))
+        digests.append((mpath, hashlib.sha256(raw).hexdigest()))
 
     # Pin check across every engine in every matrix, before any citation is read.
     clones: dict[str, Repo] = {}
@@ -249,7 +250,7 @@ def verify(matrices: list[str], root: str = ROOT, wide_lines: int = WIDE_LINES):
     header = {
         "repo_sha": repo_head,
         "run_utc": _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%SZ"),
-        "matrices": [(mpath, sha256_file(os.path.join(root, mpath))) for mpath, _ in loaded],
+        "matrices": digests,
         "pin_lines": pin_lines,
     }
     return rows, header, fatal
@@ -266,7 +267,7 @@ def render(rows: list[Row], header: dict, fatal: int) -> str:
     out.append(f"- Repository SHA: `{header['repo_sha']}`")
     out.append(f"- Run (UTC): {header['run_utc']}")
     for mpath, digest in header["matrices"]:
-        out.append(f"- SHA-256 `{mpath}`: `{digest}`")
+        out.append(f"- SHA-256 `{mpath}` (committed bytes at that SHA): `{digest}`")
     out.append("")
     out.append("Every cited file is read at the recorded pin with `git show <pin>:<path>`; the working tree is never read.")
     out.append("")
