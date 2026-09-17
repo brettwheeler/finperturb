@@ -94,13 +94,14 @@ decision the record attributes to the lead is the author's, the rehearsal
 fixtures described as analyst-written are the author's own hand-written ones,
 the one work order addressed to an implementer
 (`docs/handoff-item2-scoring-rules.md`) went to a Claude session as the
-provenance paragraph above records, and the *Dev team* identity dates from the
-sponsored arrangement and is kept rather than rewritten, because history is
-not edited here and rewriting it would change the commit IDs the filed
-registration cites. From the commit that records the OSF filing onward,
-commits are authored as Brett Wheeler, at the same address. The role
-vocabulary stays where it appears in the frozen registration attachments,
-whose bytes cannot change.
+provenance paragraph above records, and the *Dev team* identity comes from the
+Quantinero organization account the repository lived under before it moved to
+the author's personal account, a separate matter from the sponsor. It is kept
+rather than rewritten, because history is not edited here and rewriting it
+would change the commit IDs the filed registration cites. From the commit that
+records the OSF filing onward, commits are authored as Brett Wheeler, at the
+same address. The role vocabulary stays where it appears in the frozen
+registration attachments, whose bytes cannot change.
 
 **Section references.** Citations of the form `§n.n` in the arm READMEs, the
 FinMem Dockerfile and compose file, the harness docstrings and the fixture

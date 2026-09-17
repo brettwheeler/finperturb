@@ -1,6 +1,6 @@
 # OSF Registration 1 — analysis plan
 
-**Status: FILED 2026-09-17.** OSF registration: <https://osf.io/ahcvt>
+**Status: FILED 2026-09-17.** OSF registration: <https://osf.io/arft9>
 
 This document is the repository copy of the filed registration. Field text is
 transcribed verbatim from the registration, field by field, under the OSF

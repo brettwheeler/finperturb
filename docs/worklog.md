@@ -23,7 +23,7 @@ load-bearing claim. Four ticks so far, two pending:
 | **P** | pilot data exists — 630 rehearsal rows, 2026-08-08 → 2026-08-09 | log mtimes (`rehearsal_neg_momentum.jsonl` 08-08 12:09 through `rehearsal_replication.jsonl` 08-09 05:23); OSF Reg 1 disclosure |
 | **R** | scoring rules frozen — tag `rules-registered-2026-08-09` | the tag and its 22-test suite |
 | **M** | monorepo conversion, 2026-08-09 | commits `a252dc9`..`e095329` |
-| **O** | OSF Registration 1 filed, 2026-09-17 | the OSF registration, <https://osf.io/ahcvt>; tag `reg1-filed-2026-09-17` |
+| **O** | OSF Registration 1 filed, 2026-09-17 | the OSF registration, <https://osf.io/arft9>; tag `reg1-filed-2026-09-17` |
 | *F* | *fixture freeze / Registration 2 — pending* | |
 | *C* | *confirmatory runs — pending* | |
 
@@ -242,9 +242,12 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   named. Epoch post-filing-tag, 2026-09-15. Evidence: scouting-grade for the
   scan (recorded commits, not pins); anchored for (1) and (2).
 
-- **Registration 1 filed on OSF, 2026-09-17 — tick O.** <https://osf.io/ahcvt>.
+- **Registration 1 filed on OSF, 2026-09-17 — tick O.** <https://osf.io/arft9>. (Recorded
+  as `https://osf.io/ahcvt` in commit `191dae5` and in the message of tag
+  `reg1-filed-2026-09-17`; that address is not the registration. Corrected
+  in the following commit; the tag is not moved.)
   Changes made in the form relative to the draft, and carried back into
-  `docs/osf-registration-1-analysis-plan.md` in this commit: the agent's
+  `docs/osf-registration-1-analysis-plan.md` in commit `191dae5`: the agent's
   rationale text added as a measured variable, recorded with no confirmatory
   analysis; derived quantities moved to the Indices field with explicit
   formulas; the three pilot-derived rules stated in the foreknowledge
