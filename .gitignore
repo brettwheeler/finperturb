@@ -10,3 +10,6 @@ __pycache__/
 
 # Local agent-session state; never part of the registered record.
 .claude/
+
+# Desktop-app session outputs mirrored into the working folder; not part of the record.
+Claude outputs/

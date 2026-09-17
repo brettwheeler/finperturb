@@ -94,10 +94,16 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
 - **Run matrix runner: append-only JSONL, stamped rows.** `run_matrix.py`;
   item, class, action, status, backbone version, context stamp; logs never
   edited. Epoch pre-P. Joins T3 and T4.
-- **Pilot execution.** 630 rows, four rehearsal runs. **This is tick P.**
-  Order within: neg-momentum 08-08, then flat / borderline / replication early
-  08-09. Evidence: anchored (log mtimes). Logs uncommitted per data policy;
-  reports regenerate from them by one command.
+- **Pilot execution.** Four rehearsal runs, 670 rows, two frozen contexts:
+  630 rows in the flat context (`rehearsal_flat_momentum`, `rehearsal_borderline`,
+  `rehearsal_replication`; the figure Registration 1, the scoring handoff and
+  the pooled report use) and 40 rows in a negative-momentum context
+  (`rehearsal_neg_momentum`), scored on its own, never pooled with the other
+  three, and the log that supplied the S01 tie behind the tie rule. **This is
+  tick P.** Order within: neg-momentum 08-08, then flat / borderline /
+  replication early 08-09. Evidence: anchored (log mtimes; row counts by `wc -l`
+  on the four logs). Logs uncommitted per data policy; reports regenerate from
+  them by one command.
 
 ### T6 — Scoring
 
@@ -264,6 +270,15 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   committed; it regenerates from the tags. Epoch post-R, post-filing,
   2026-09-17. Evidence: anchored (the OSF registration and its timestamp; tag
   `reg1-filed-2026-09-17`).
+
+- **Archival identifiers.** The OSF registration DOI
+  (<https://doi.org/10.17605/OSF.IO/ARFT9>) recorded in the README;
+  `CITATION.cff` and `.zenodo.json` added so the GitHub release that follows
+  this commit is archived on Zenodo with author, licence and related-identifier
+  metadata fixed in the repository rather than typed into a form. The Zenodo
+  concept and version DOIs are recorded in `CITATION.cff` once minted, in the
+  commit after the release. Epoch post-O, 2026-09-17. Evidence: anchored (this
+  commit; the release tag and the Zenodo record).
 
 ### T8 — Monorepo
 

@@ -1,0 +1,15 @@
+{
+  "title": "FinPerturb: decision stability of published LLM trading agents under meaning-preserving perturbation of news input",
+  "upload_type": "software",
+  "creators": [
+    {"name": "Wheeler, Brett E."}
+  ],
+  "description": "Harness, frozen scoring rules, read-out rule, channel-applicability audits and preregistration record for FinPerturb. Code is Apache-2.0; documentation under docs/ and the registration attachments are CC-BY 4.0. The confirmatory design is OSF Registration 1 (doi:10.17605/OSF.IO/ARFT9).",
+  "license": "Apache-2.0",
+  "access_right": "open",
+  "keywords": ["LLM agents", "algorithmic trading", "perturbation testing", "preregistration", "robustness"],
+  "related_identifiers": [
+    {"identifier": "10.17605/OSF.IO/ARFT9", "relation": "isSupplementTo", "resource_type": "publication-preprint", "scheme": "doi"},
+    {"identifier": "https://github.com/brettwheeler/finperturb", "relation": "isIdenticalTo", "scheme": "url"}
+  ]
+}
