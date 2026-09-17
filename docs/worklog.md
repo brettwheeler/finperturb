@@ -275,9 +275,11 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   (<https://doi.org/10.17605/OSF.IO/ARFT9>) recorded in the README;
   `CITATION.cff` and `.zenodo.json` added so the GitHub release that follows
   this commit is archived on Zenodo with author, licence and related-identifier
-  metadata fixed in the repository rather than typed into a form. The Zenodo
-  concept and version DOIs are recorded in `CITATION.cff` once minted, in the
-  commit after the release. Epoch post-O, 2026-09-17. Evidence: anchored (this
+  metadata fixed in the repository rather than typed into a form. Release
+  `v1.0.0-reg1` archived on Zenodo the same day: concept DOI
+  10.5281/zenodo.22817298, version DOI 10.5281/zenodo.22817299, recorded in
+  `CITATION.cff` and the README in the commit after the release, because a
+  DOI cannot precede the release it identifies. Epoch post-O, 2026-09-17. Evidence: anchored (this
   commit; the release tag and the Zenodo record).
 
 ### T8 — Monorepo

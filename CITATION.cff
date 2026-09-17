@@ -3,6 +3,7 @@ message: >-
   If you use this repository, cite the OSF registration for the design and the
   Zenodo version DOI for the code and documentation at the release you used.
 type: software
+doi: 10.5281/zenodo.22817298
 title: "FinPerturb: decision stability of published LLM trading agents under meaning-preserving perturbation of news input"
 authors:
   - family-names: Wheeler
@@ -20,10 +21,9 @@ identifiers:
   - type: doi
     value: 10.17605/OSF.IO/ARFT9
     description: OSF Registration 1 (confirmatory design), filed 2026-09-17
-  # Add after the first Zenodo release:
-  # - type: doi
-  #   value: 10.5281/zenodo.XXXXXXX
-  #   description: Zenodo concept DOI (resolves to the latest release)
-  # - type: doi
-  #   value: 10.5281/zenodo.YYYYYYY
-  #   description: Zenodo version DOI for release v1.0.0-reg1
+  - type: doi
+    value: 10.5281/zenodo.22817298
+    description: Zenodo concept DOI (resolves to the latest release)
+  - type: doi
+    value: 10.5281/zenodo.22817299
+    description: Zenodo version DOI for release v1.0.0-reg1

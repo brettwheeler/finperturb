@@ -118,9 +118,11 @@ since every registered rule is stated in full in `scoring/README.md`,
 **Status.** The confirmatory design is registered and frozen: OSF
 Registration 1, <https://doi.org/10.17605/OSF.IO/ARFT9>, filed 2026-09-17
 (repository copy: `docs/osf-registration-1-analysis-plan.md`). The repository
-at the filed state is archived on Zenodo under a concept DOI that resolves to
-the latest release; each release carries its own version DOI — see
-`CITATION.cff`. Confirmatory runs are not scheduled: the channel-applicability
+is archived on Zenodo: concept DOI <https://doi.org/10.5281/zenodo.22817298>
+(resolves to the latest release); release `v1.0.0-reg1`, the Registration 1
+filed state, is <https://doi.org/10.5281/zenodo.22817299>. Cite the OSF DOI
+for the design and the version DOI for the code and documentation you used
+(`CITATION.cff`). Confirmatory runs are not scheduled: the channel-applicability
 audit that this repository reports is a precondition on running the suite,
 and establishing it was prior to spending against it. The harness, the
 frozen scoring rules, the read-out rule and the protocol are released for
