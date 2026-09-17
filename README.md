@@ -82,22 +82,25 @@ before any confirmatory run, the test suite pins their behavior, and every
 report prints the repo SHA it was scored under. Who typed the rules matters
 less than the fact that they cannot silently change.
 
-**Roles, and the commit identity.** The documents and code speak of a
-*project lead*, an *analyst* (a project role, not the analyst agents inside
-TradingAgents) and an *implementer*, and the commits are authored as *Dev
-team*. The study was scoped with a corporate sponsor that was to supply the
-analyst and implementation roles; the sponsor withdrew before any
-confirmatory work, which is also the gap in commit activity between the
-registration snapshot and the September work. The lead was always the
-author, who is now the only person on the project: every decision the record
-attributes to the lead is the author's, the rehearsal fixtures described as
-analyst-written are the author's own hand-written ones, the one work order
-addressed to an implementer (`docs/handoff-item2-scoring-rules.md`) went to
-a Claude session as the provenance paragraph above records, and the *Dev
-team* identity dates from the sponsored arrangement and is kept rather than
-rewritten, because history is not edited here. The role vocabulary stays
-where it appears in the frozen registration attachments, whose bytes cannot
-change.
+**Roles, and the commit identity.** The documents and code speak of a *project
+lead*, an *analyst* (a project role, not the analyst agents inside
+TradingAgents) and an *implementer*, and the commits through the Registration
+1 filing state are authored as *Dev team*. The study was scoped with a
+corporate sponsor that was to supply the analyst and implementation roles; the
+sponsor withdrew before any confirmatory work, which is also the gap in commit
+activity between the registration snapshot and the September work. The lead
+was always the author, who is now the only person on the project: every
+decision the record attributes to the lead is the author's, the rehearsal
+fixtures described as analyst-written are the author's own hand-written ones,
+the one work order addressed to an implementer
+(`docs/handoff-item2-scoring-rules.md`) went to a Claude session as the
+provenance paragraph above records, and the *Dev team* identity dates from the
+sponsored arrangement and is kept rather than rewritten, because history is
+not edited here and rewriting it would change the commit IDs the filed
+registration cites. From the commit that records the OSF filing onward,
+commits are authored as Brett Wheeler, at the same address. The role
+vocabulary stays where it appears in the frozen registration attachments,
+whose bytes cannot change.
 
 **Section references.** Citations of the form `§n.n` in the arm READMEs, the
 FinMem Dockerfile and compose file, the harness docstrings and the fixture

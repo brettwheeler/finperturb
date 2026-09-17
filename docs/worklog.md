@@ -16,13 +16,14 @@ event is the checkable one.
 ## The clock
 
 Calendar dates decorate; position relative to the boundary events is the
-load-bearing claim. Three ticks so far, two pending:
+load-bearing claim. Four ticks so far, two pending:
 
 | tick | event | anchor |
 |---|---|---|
 | **P** | pilot data exists — 630 rehearsal rows, 2026-08-08 → 2026-08-09 | log mtimes (`rehearsal_neg_momentum.jsonl` 08-08 12:09 through `rehearsal_replication.jsonl` 08-09 05:23); OSF Reg 1 disclosure |
 | **R** | scoring rules frozen — tag `rules-registered-2026-08-09` | the tag and its 22-test suite |
 | **M** | monorepo conversion, 2026-08-09 | commits `a252dc9`..`e095329` |
+| **O** | OSF Registration 1 filed, 2026-09-17 | the OSF registration, <https://osf.io/ahcvt>; tag `reg1-filed-2026-09-17` |
 | *F* | *fixture freeze / Registration 2 — pending* | |
 | *C* | *confirmatory runs — pending* | |
 
@@ -240,6 +241,26 @@ Parallel to T3 throughout; writes memory-row pickles, never runs the agent.
   sought per engine and none found; one new sub-type (parallel delivery)
   named. Epoch post-filing-tag, 2026-09-15. Evidence: scouting-grade for the
   scan (recorded commits, not pins); anchored for (1) and (2).
+
+- **Registration 1 filed on OSF, 2026-09-17 — tick O.** <https://osf.io/ahcvt>.
+  Changes made in the form relative to the draft, and carried back into
+  `docs/osf-registration-1-analysis-plan.md` in this commit: the agent's
+  rationale text added as a measured variable, recorded with no confirmatory
+  analysis; derived quantities moved to the Indices field with explicit
+  formulas; the three pilot-derived rules stated in the foreknowledge
+  explanation; a statement on causal inference attached to Study design; the
+  read-out rule's NOT SHOWN TO BE SENSITIVE and INCONCLUSIVE labels given a
+  boundary at thresholds the rule already uses (CI lower bound on the class's
+  net effect above 0, versus at or below 0), with SENSITIVE and STABLE reported
+  together when both criteria hold; limitation 7 declares the registrant's
+  position. Attachments uploaded as one bundle, `reg1-attachments.zip`
+  (sha256 `ed048e6b377fceef30c04939667478c89c8feea60ffb04e12d280eb4dd9eb70a`),
+  to stay within OSF's per-question file limit: the ten files extracted from
+  `reg1-snapshot-2026-08-16` and `reg1-filing-2026-09b`, each verified against
+  its tagged blob, plus `MANIFEST.txt` and `SHA256SUMS`. The bundle is not
+  committed; it regenerates from the tags. Epoch post-R, post-filing,
+  2026-09-17. Evidence: anchored (the OSF registration and its timestamp; tag
+  `reg1-filed-2026-09-17`).
 
 ### T8 — Monorepo
 
